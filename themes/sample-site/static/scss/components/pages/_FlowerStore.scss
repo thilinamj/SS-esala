@@ -1,0 +1,42 @@
+.sales {
+
+    &__text-block {
+
+        text-align: center;
+        overflow: auto;
+        position: relative;
+        height: 100%;
+        word-break: break-all;
+
+
+        h3 {
+            margin-bottom: 0px;
+            margin-top: 15px;
+
+            p {
+
+            }
+        }
+    }}
+
+.flower-list{
+    &__card{
+        img{
+            max-height: 100px;
+        }
+        h6{
+            color: #ff6600;
+        }
+    }
+}
+
+.contact__info{
+
+    ul{
+        margin-top: 20px;
+        li{
+            list-style: none;
+        }
+
+    }
+}

@@ -1,0 +1,47 @@
+.card-block{
+
+  margin-bottom: 25px;
+  margin-top: 25px;
+  cursor: pointer;
+
+
+  &__content{
+    text-align: center;
+    margin-left: 10px;
+
+    .card{
+      -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+      -moz-box-shadow:    0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+      box-shadow:         0px 0px 5px 0px rgba(0, 0, 0, 0.5 );
+
+      margin-top: 10px;
+    }
+  }
+
+  &__img{
+    width: 100%;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+
+    &:hover {
+      -webkit-transform: scale(1.2);
+      transform: scale(1.2);
+    }
+  }
+
+  .card-section{
+    h4{
+      padding-top: 20px;
+    }
+  }
+
+  @include breakpoint(medium) {
+
+    &__content{
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}

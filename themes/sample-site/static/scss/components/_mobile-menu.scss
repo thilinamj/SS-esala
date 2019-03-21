@@ -1,0 +1,25 @@
+.mobile-menu {
+  background: #ffff4d;
+  z-index: 2;
+
+  ul {
+    padding-top: 1rem;
+    list-style: none;
+
+    li {
+      margin-bottom: 1rem;
+    }
+  }
+
+  a {
+    color: black;
+    text-transform: uppercase;
+    &:hover{
+      color:#ff6600;
+    }
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}

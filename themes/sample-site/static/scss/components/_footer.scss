@@ -1,0 +1,77 @@
+.footer {
+    font-size: 10pt;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    background-color: #ffff4d;
+    color: black;
+    padding: 20px;
+
+    &__text {
+        text-align: left;
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+
+
+        li {
+            color: black;
+            display: grid;
+            //margin-right: 10px;
+            //margin-top: 8px;
+            text-decoration: underline;
+            margin-bottom: 5px;
+
+        }
+    }
+
+
+    &__right-text {
+        text-align: center;
+
+        p {
+            margin-bottom: 0;
+        }
+
+    }
+
+    &__link {
+
+        text-decoration: underline;
+        color: black;
+
+    }
+
+    @include breakpoint(medium) {
+
+        &__text {
+
+            display: inline-flex;
+
+            li {
+                margin-right: 20px;
+                font-size: 15px;
+
+            }
+
+        }
+
+        &__logo {
+            font-size: 30px;
+            text-align: left;
+
+
+        }
+
+        &__right-text {
+            text-align: right;
+
+            p {
+                display: inline-block;
+                margin-left: 20px;
+                font-size: 15px;
+            }
+        }
+    }
+}
+
+

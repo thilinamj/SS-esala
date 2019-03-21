@@ -1,3 +1,1 @@
 # SS-esala
-
-Sampleucghcvhgcvhcv
