@@ -69,6 +69,10 @@ class StringTypeParser implements TypeParserInterface
             );
         }
 
+        if (!static::isInternalType($matches[1])) {
+            throw new InvalidArgumentException("Invalid type: " . $matches[1]);
+        }
+
         $this->rawArg = $rawArg;
         $this->typeStr = $matches[1];
         $this->required = isset($matches[2]) && $matches[2] == '!';
@@ -114,16 +118,14 @@ class StringTypeParser implements TypeParserInterface
             case Type::FLOAT:
                 return (float)$this->defaultValue;
             default:
-                return $this->defaultValue;
+                return null;
         }
     }
 
     /**
-     * @param boolean $nullable If true, allow the type to be null. Otherwise,
-     *  return the typename, which may be arbitrary.
-     * @return Type|string
+     * @return Type
      */
-    public function getType($nullable = true)
+    public function getType()
     {
         switch ($this->typeStr) {
             case Type::ID:
@@ -137,7 +139,7 @@ class StringTypeParser implements TypeParserInterface
             case Type::FLOAT:
                 return Type::float();
             default:
-                return $nullable ? null : $this->typeStr;
+                return null;
         }
     }
 }

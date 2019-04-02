@@ -514,7 +514,7 @@ class DataObjectScaffolder implements ManagerMutatorInterface, ScaffolderInterfa
                 if ($settings === false) {
                     continue;
                 } elseif (is_string($settings)) {
-                    if (is_subclass_of($settings, QueryScaffolder::class)) {
+                    if (is_subclass_of(QueryScaffolder::class, $settings)) {
                         $queryScaffolder = new $settings($relationName);
                         $this->nestedQuery($relationName, $queryScaffolder);
                     } else {

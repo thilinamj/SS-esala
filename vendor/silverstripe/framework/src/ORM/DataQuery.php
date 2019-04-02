@@ -599,7 +599,7 @@ class DataQuery
     /**
      * Append a HAVING clause to this query.
      *
-     * @param mixed $having Predicate(s) to set, as escaped SQL statements or parameterised queries
+     * @param string $having Escaped SQL statement
      * @return $this
      */
     public function having($having)

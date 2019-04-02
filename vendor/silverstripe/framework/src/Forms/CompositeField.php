@@ -53,15 +53,16 @@ class CompositeField extends FormField
 
     public function __construct($children = null)
     {
-        // Normalise $children to a FieldList
-        if (!$children instanceof FieldList) {
-            if (!is_array($children)) {
-                // Fields are provided as a list of arguments
-                $children = array_filter(func_get_args());
-            }
-            $children = new FieldList($children);
+        if ($children instanceof FieldList) {
+            $this->children = $children;
+        } elseif (is_array($children)) {
+            $this->children = new FieldList($children);
+        } else {
+            //filter out null/empty items
+            $children = array_filter(func_get_args());
+            $this->children = new FieldList($children);
         }
-        $this->setChildren($children);
+        $this->children->setContainerField($this);
 
         parent::__construct(null, false);
     }
@@ -154,7 +155,6 @@ class CompositeField extends FormField
     public function setChildren($children)
     {
         $this->children = $children;
-        $children->setContainerField($this);
         return $this;
     }
 
@@ -347,9 +347,9 @@ class CompositeField extends FormField
      * @param FormField $field
      * @return false|FormField
      */
-    public function insertBefore($insertBefore, $field, $appendIfMissing = true)
+    public function insertBefore($insertBefore, $field)
     {
-        return $this->children->insertBefore($insertBefore, $field, $appendIfMissing);
+        return $this->children->insertBefore($insertBefore, $field);
     }
 
     /**
@@ -358,9 +358,9 @@ class CompositeField extends FormField
      * @param FormField $field
      * @return false|FormField
      */
-    public function insertAfter($insertAfter, $field, $appendIfMissing = true)
+    public function insertAfter($insertAfter, $field)
     {
-        return $this->children->insertAfter($insertAfter, $field, $appendIfMissing);
+        return $this->children->insertAfter($insertAfter, $field);
     }
 
     /**

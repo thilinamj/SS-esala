@@ -1,12 +1,22 @@
 {
-    "name": "silverstripe/installer",
+    "name": "reynolds",
     "type": "silverstripe-recipe",
-    "description": "The SilverStripe Framework Installer",
+    "description": "",
     "require": {
         "php": ">=5.6.0",
+        "dnadesign/silverstripe-elemental": "^3.0",
+        "dnadesign/silverstripe-elemental-virtual": "^1.0",
         "silverstripe/recipe-plugin": "^1.2",
-        "silverstripe/recipe-cms": "4.3.0@stable",
-        "silverstripe-themes/simple": "~3.2.0"
+        "silverstripe/recipe-cms": "4.2.1@stable",
+        "silverstripe-themes/simple": "~3.2.0",
+        "gdmedia/ss-auto-git-ignore": "^1.0",
+        "sheadawson/silverstripe-linkable": "^2.0",
+        "jonom/focuspoint": "^3.0",
+        "bummzack/sortablefile": "^2",
+        "silverstripe/blog": "^3.2",
+        "silverstripe/userforms": "^5.3",
+        "dnadesign/silverstripe-elemental-userforms": "1.x-dev",
+        "symbiote/silverstripe-gridfieldextensions": "3.2.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7"
@@ -27,14 +37,18 @@
             "web.config"
         ],
         "expose": [
-            "themes/sample-site/static/dist",
-            "themes/sample-site/static/images",
-            "themes/sample-site/static/js"
+            "themes/esalaflora/static/dist",
+            "themes/esalaflora/static/images",
+            "themes/esalaflora/static/js",
+            "themes/esalaflora/static/fonts"
         ]
     },
     "config": {
         "process-timeout": 600
     },
     "prefer-stable": true,
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "scripts": {
+        "post-update-cmd": "GDM\\SSAutoGitIgnore\\UpdateScript::Go"
+    }
 }

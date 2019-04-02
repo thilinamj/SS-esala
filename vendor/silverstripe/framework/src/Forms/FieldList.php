@@ -31,7 +31,7 @@ class FieldList extends ArrayList
      * If this fieldlist is owned by a parent field (e.g. CompositeField)
      * this is the parent field.
      *
-     * @var CompositeField
+     * @var FieldList|FormField
      */
     protected $containerField;
 
@@ -183,7 +183,7 @@ class FieldList extends ArrayList
     }
 
     /**
-     * @deprecated 4.1.0:5.0.0 Please use dataFields or saveableFields
+     * @deprecated 4.1..5.0 Please use dataFields or saveableFields
      * @param $list
      * @param bool $saveableOnly
      */
@@ -248,7 +248,7 @@ class FieldList extends ArrayList
         } else {
             $tab->push($field);
         }
-
+        
         return $this;
     }
 
@@ -282,7 +282,7 @@ class FieldList extends ArrayList
                 $tab->push($field);
             }
         }
-
+        
         return $this;
     }
 
@@ -299,11 +299,9 @@ class FieldList extends ArrayList
         $this->flushFieldsCache();
 
         // Find the tab
-        $tab = $this->findTab($tabName);
-        if ($tab) {
-            $tab->removeByName($fieldName);
-        }
-
+        $tab = $this->findOrMakeTab($tabName);
+        $tab->removeByName($fieldName);
+        
         return $this;
     }
 
@@ -320,14 +318,13 @@ class FieldList extends ArrayList
         $this->flushFieldsCache();
 
         // Find the tab
-        $tab = $this->findTab($tabName);
-        if ($tab) {
-            // Add the fields to the end of this set
-            foreach ($fields as $field) {
-                $tab->removeByName($field);
-            }
-        }
+        $tab = $this->findOrMakeTab($tabName);
 
+        // Add the fields to the end of this set
+        foreach ($fields as $field) {
+            $tab->removeByName($field);
+        }
+        
         return $this;
     }
 
@@ -370,7 +367,7 @@ class FieldList extends ArrayList
                 $child->removeByName($fieldName, $dataFieldOnly);
             }
         }
-
+        
         return $this;
     }
 
@@ -429,28 +426,6 @@ class FieldList extends ArrayList
         }
 
         return false;
-    }
-
-    /**
-     * Returns the specified tab object, if it exists
-     *
-     * @param string $tabName The tab to return, in the form "Tab.Subtab.Subsubtab".
-     * @return Tab|null The found or null
-     */
-    public function findTab($tabName)
-    {
-        $parts = explode('.', $tabName);
-        $last_idx = count($parts) - 1;
-
-        $currentPointer = $this;
-
-        foreach ($parts as $k => $part) {
-            $parentPointer = $currentPointer;
-            /** @var FormField $currentPointer */
-            $currentPointer = $currentPointer->fieldByName($part);
-        }
-
-        return $currentPointer;
     }
 
     /**
@@ -563,14 +538,12 @@ class FieldList extends ArrayList
 
     /**
      * Inserts a field before a particular field in a FieldList.
-     * Will traverse CompositeFields depth-first to find the maching $name, and insert before the first match
      *
      * @param string $name Name of the field to insert before
      * @param FormField $item The form field to insert
-     * @param bool $appendIfMissing Append to the end of the list if $name isn't found
-     * @return FormField|false Field if it was successfully inserted, false if not inserted
+     * @return FormField|false
      */
-    public function insertBefore($name, $item, $appendIfMissing = true)
+    public function insertBefore($name, $item)
     {
         // Backwards compatibility for order of arguments
         if ($name instanceof FormField) {
@@ -586,7 +559,7 @@ class FieldList extends ArrayList
                 array_splice($this->items, $i, 0, array($item));
                 return $item;
             } elseif ($child instanceof CompositeField) {
-                $ret = $child->insertBefore($name, $item, false);
+                $ret = $child->insertBefore($name, $item);
                 if ($ret) {
                     return $ret;
                 }
@@ -594,25 +567,17 @@ class FieldList extends ArrayList
             $i++;
         }
 
-        // $name not found, append if needed
-        if ($appendIfMissing) {
-            $this->push($item);
-            return $item;
-        }
-
         return false;
     }
 
     /**
      * Inserts a field after a particular field in a FieldList.
-     * Will traverse CompositeFields depth-first to find the maching $name, and insert after the first match
      *
      * @param string $name Name of the field to insert after
      * @param FormField $item The form field to insert
-     * @param bool $appendIfMissing Append to the end of the list if $name isn't found
-     * @return FormField|false Field if it was successfully inserted, false if not inserted
+     * @return FormField|false
      */
-    public function insertAfter($name, $item, $appendIfMissing = true)
+    public function insertAfter($name, $item)
     {
         // Backwards compatibility for order of arguments
         if ($name instanceof FormField) {
@@ -628,18 +593,12 @@ class FieldList extends ArrayList
                 array_splice($this->items, $i+1, 0, array($item));
                 return $item;
             } elseif ($child instanceof CompositeField) {
-                $ret = $child->insertAfter($name, $item, false);
+                $ret = $child->insertAfter($name, $item);
                 if ($ret) {
                     return $ret;
                 }
             }
             $i++;
-        }
-
-        // $name not found, append if needed
-        if ($appendIfMissing) {
-            $this->push($item);
-            return $item;
         }
 
         return false;
@@ -790,15 +749,7 @@ class FieldList extends ArrayList
     }
 
     /**
-     * @return CompositeField|null
-     */
-    public function getContainerField()
-    {
-        return $this->containerField;
-    }
-
-    /**
-     * @param CompositeField|null $field
+     * @param $field
      * @return $this
      */
     public function setContainerField($field)

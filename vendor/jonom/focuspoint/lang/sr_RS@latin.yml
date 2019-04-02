@@ -1,0 +1,3 @@
+sr_RS@latin:
+  SilverStripe\Assets\Image:
+    db_FocusPoint: 'Tačka fokusa'

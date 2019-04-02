@@ -21,21 +21,18 @@ class ErrorDirector extends Director
      * Redirect with token if allowed, or null if not allowed
      *
      * @param HTTPRequest $request
-     * @param ConfirmationTokenChain $confirmationTokenChain
+     * @param ParameterConfirmationToken $token
      * @param Kernel $kernel
      * @return null|HTTPResponse Redirection response, or null if not able to redirect
      */
-    public function handleRequestWithTokenChain(
-        HTTPRequest $request,
-        ConfirmationTokenChain $confirmationTokenChain,
-        Kernel $kernel
-    ) {
+    public function handleRequestWithToken(HTTPRequest $request, ParameterConfirmationToken $token, Kernel $kernel)
+    {
         Injector::inst()->registerService($request, HTTPRequest::class);
 
         // Next, check if we're in dev mode, or the database doesn't have any security data, or we are admin
-        $reload = function (HTTPRequest $request) use ($confirmationTokenChain, $kernel) {
+        $reload = function (HTTPRequest $request) use ($token, $kernel) {
             if ($kernel->getEnvironment() === Kernel::DEV || !Security::database_is_ready() || Permission::check('ADMIN')) {
-                return $confirmationTokenChain->reloadWithTokens();
+                return $token->reloadWithToken();
             }
             return null;
         };

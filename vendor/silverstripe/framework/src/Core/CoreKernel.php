@@ -223,7 +223,7 @@ class CoreKernel implements Kernel
         // Case 1: $databaseConfig global exists. Merge $database in as needed
         if (!empty($databaseConfig)) {
             if (!empty($database)) {
-                $databaseConfig['database'] =  $this->getDatabasePrefix() . $database . $this->getDatabaseSuffix();
+                $databaseConfig['database'] =  $this->getDatabasePrefix() . $database;
             }
 
             // Only set it if its valid, otherwise ignore $databaseConfig entirely
@@ -237,7 +237,7 @@ class CoreKernel implements Kernel
         // Case 2: $database merged into existing config
         if (!empty($database)) {
             $existing = DB::getConfig();
-            $existing['database'] = $this->getDatabasePrefix() . $database . $this->getDatabaseSuffix();
+            $existing['database'] = $this->getDatabasePrefix() . $database;
 
             DB::setConfig($existing);
         }
@@ -375,14 +375,6 @@ class CoreKernel implements Kernel
     }
 
     /**
-     * @return string
-     */
-    protected function getDatabaseSuffix()
-    {
-        return Environment::getEnv('SS_DATABASE_SUFFIX') ?: '';
-    }
-
-    /**
      * Get name of database
      *
      * @return string
@@ -393,7 +385,7 @@ class CoreKernel implements Kernel
         global $database;
 
         if (!empty($database)) {
-            return $this->getDatabasePrefix() . $database . $this->getDatabaseSuffix();
+            return $this->getDatabasePrefix() . $database;
         }
 
         global $databaseConfig;
@@ -406,7 +398,7 @@ class CoreKernel implements Kernel
         $database = Environment::getEnv('SS_DATABASE_NAME');
 
         if ($database) {
-            return $this->getDatabasePrefix() . $database . $this->getDatabaseSuffix();
+            return $this->getDatabasePrefix() . $database;
         }
 
         // Auto-detect name

@@ -52,8 +52,7 @@ class ImageShortcodeProvider extends FileShortcodeProvider implements ShortcodeH
             /** @var AssetStore $store */
             $store = Injector::inst()->get(AssetStore::class);
             if (!empty($item['filename'])) {
-                // Initiate a protected asset grant if necessary
-                $store->getAsURL($item['filename'], $item['hash']);
+                $store->grant($item['filename'], $item['hash']);
             }
             return $item['markup'];
         }
@@ -158,15 +157,5 @@ class ImageShortcodeProvider extends FileShortcodeProvider implements ShortcodeH
     {
         /** @var CacheInterface $cache */
         return Injector::inst()->get(CacheInterface::class . '.ImageShortcodeProvider');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected static function find_error_record($errorCode)
-    {
-        return Image::create([
-            'Title' => _t(__CLASS__ . '.IMAGENOTFOUND', 'Image not found'),
-        ]);
     }
 }

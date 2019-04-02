@@ -48,8 +48,8 @@ import debounce from 'lodash.debounce';
     }
 
     this.defaults = {
-      fieldSelector: ':input:not(:button,[type="submit"],[type="search"],.gridstate)',
-      ignoreFieldSelector: '.no-change-track,[type="search"]',
+      fieldSelector: ':input:not(:button,[type="submit"])',
+      ignoreFieldSelector: '.no-change-track',
       changedCssClass: 'changed'
     };
 
@@ -124,12 +124,7 @@ import debounce from 'lodash.debounce';
       };
 
       // Handler for detecting global changes
-      var detectChanges = function (e) {
-        // If the event came from an untracked input, we don't need to invoke
-        // the global handler.
-        if (e && $(e.target).is(options.ignoreFieldSelector)) {
-          return;
-        }
+      var detectChanges = function () {
         var changed = isChanged();
         self.toggleClass(options.changedCssClass, changed);
       };
@@ -225,7 +220,7 @@ import debounce from 'lodash.debounce';
     this.getFields = function() {
       return this
         .find(options.fieldSelector)
-        .not(options.ignoreFieldSelector + ', .search-box *');
+        .not(options.ignoreFieldSelector);
     };
 
     // Support invoking "public" methods as string arguments

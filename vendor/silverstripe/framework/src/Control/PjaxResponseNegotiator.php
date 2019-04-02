@@ -103,7 +103,7 @@ class PjaxResponseNegotiator
             }
         }
         $response->setBody(Convert::raw2json($responseParts));
-        $response->addHeader('Content-Type', 'application/json');
+        $response->addHeader('Content-Type', 'text/json');
 
         return $response;
     }

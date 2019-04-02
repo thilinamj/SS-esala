@@ -1,0 +1,19 @@
+DNADesign\Elemental\Models\ElementalArea:
+  area1:
+    Title: Bogus
+
+DNADesign\ElementalUserForms\Tests\Stub\TestPage:
+  page1:
+    Title: Page 1
+    URLSegment: test-page
+    ElementalAreaID: =>DNADesign\Elemental\Models\ElementalArea.area1
+
+DNADesign\ElementalUserForms\Tests\Stub\TestElement:
+  element1:
+    Title: Element 1
+    ParentID: =>DNADesign\Elemental\Models\ElementalArea.area1
+
+DNADesign\ElementalUserForms\Model\ElementForm:
+  formelement:
+    Title: Element Form
+    ParentID: =>DNADesign\Elemental\Models\ElementalArea.area1

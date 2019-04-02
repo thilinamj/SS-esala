@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
+    'GDM\\' => array($vendorDir . '/gdmedia/ss-auto-git-ignore'),
 );

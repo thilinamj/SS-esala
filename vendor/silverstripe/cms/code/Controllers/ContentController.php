@@ -435,15 +435,19 @@ HTML;
     public function getViewer($action)
     {
         // Manually set templates should be dealt with by Controller::getViewer()
-        if (!empty($this->templates[$action])
-            || !empty($this->templates['index'])
+        if (isset($this->templates[$action]) && $this->templates[$action]
+            || (isset($this->templates['index']) && $this->templates['index'])
             || $this->template
         ) {
             return parent::getViewer($action);
         }
 
         // Prepare action for template search
-        $action = $action === 'index' ? '' : '_' . $action;
+        if ($action == "index") {
+            $action = "";
+        } else {
+            $action = '_' . $action;
+        }
 
         $templatesFound = [];
         // Find templates for the record + action together - e.g. Page_action.ss

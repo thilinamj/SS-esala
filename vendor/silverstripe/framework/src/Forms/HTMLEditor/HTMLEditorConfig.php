@@ -83,7 +83,6 @@ abstract class HTMLEditorConfig
         // Create new instance if unconfigured
         if (!isset(self::$configs[$identifier])) {
             self::$configs[$identifier] = static::create();
-            self::$configs[$identifier]->setOption('editorIdentifier', $identifier);
         }
         return self::$configs[$identifier];
     }
@@ -99,7 +98,6 @@ abstract class HTMLEditorConfig
     {
         if ($config) {
             self::$configs[$identifier] = $config;
-            self::$configs[$identifier]->setOption('editorIdentifier', $identifier);
         } else {
             unset(self::$configs[$identifier]);
         }
@@ -226,17 +224,4 @@ abstract class HTMLEditorConfig
      * Initialise the editor on the client side
      */
     abstract public function init();
-
-    /**
-     * Provide additional schema data for the field this object configures
-     *
-     * @return array
-     */
-    public function getConfigSchemaData()
-    {
-        return [
-            'attributes' => $this->getAttributes(),
-            'editorjs' => null,
-        ];
-    }
 }

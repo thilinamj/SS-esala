@@ -52,7 +52,7 @@ class FeatureContext extends SilverStripeContext
      */
     public function iClickOnVersion($versionNo)
     {
-        $versions = $this->getVersions(' .history-viewer__version-no');
+        $versions = $this->getVersions(' td:first-child');
         $desiredVersion = null;
         foreach ($versions as $version) {
             /** @var NodeElement $version */
@@ -63,41 +63,6 @@ class FeatureContext extends SilverStripeContext
         }
         assertNotNull($desiredVersion, 'Desired version ' . $versionNo . ' was not found in the page.');
         $this->clickVersion($desiredVersion);
-    }
-
-    /**
-     * @Given I open the history viewer actions menu
-     */
-    public function iOpenTheHistoryViewerActionsMenu()
-    {
-        $button = $this->getSession()->getPage()->find('css', '.history-viewer__heading .history-viewer__actions .btn');
-        assertNotNull($button, 'History viewer actions menu not found in the page.');
-
-        $button->click();
-    }
-
-    /**
-     * @Then the text :text should be deleted
-     */
-    public function theTextShouldBeDeleted($text)
-    {
-        $result = $this->getSession()->getPage()->find(
-            'xpath',
-            sprintf('//del[contains(normalize-space(string(.)), \'%s\')]', $text)
-        );
-        assertNotNull($result, $text . ' was not shown as deleted');
-    }
-
-    /**
-     * @Then the text :text should be added
-     */
-    public function theTextShouldBeAdded($text)
-    {
-        $result = $this->getSession()->getPage()->find(
-            'xpath',
-            sprintf('//ins[contains(normalize-space(string(.)), \'%s\')]', $text)
-        );
-        assertNotNull($result, $text . ' was not shown as added');
     }
 
     /**
@@ -121,12 +86,13 @@ class FeatureContext extends SilverStripeContext
      */
     protected function getVersions($modifier = '')
     {
-        // Wait for the list to be visible
+        // Wait for the table to be visible
         $this->getSession()->wait(3000, 'window.jQuery(".history-viewer .table").length > 0');
 
         $versions = $this->getSession()
             ->getPage()
-            ->findAll('css', '.history-viewer__list .history-viewer__table .history-viewer__row' . $modifier);
+            ->findAll('css', '.history-viewer .table tbody tr' . $modifier);
+
         return $versions;
     }
 
@@ -155,7 +121,7 @@ class FeatureContext extends SilverStripeContext
     public function iShouldSeeInTheAuthorColumn($text, $versionNumber)
     {
         $version = $this->getSpecificVersion($versionNumber);
-        $authorColumn = $version->find('css', '.history-viewer__author');
+        $authorColumn = $version->find('css', 'td:nth-of-type(3)');
 
         $exists = strpos($authorColumn->getText(), $text) !== false;
         assertTrue($exists, 'Author column contains ' . $text);
@@ -169,7 +135,7 @@ class FeatureContext extends SilverStripeContext
     public function iShouldSeeInTheRecordColumn($text, $versionNumber)
     {
         $version = $this->getSpecificVersion($versionNumber);
-        $recordColumn = $version->find('css', '.history-viewer__version-state');
+        $recordColumn = $version->find('css', 'td:nth-of-type(2)');
 
         $exists = strpos($recordColumn->getText(), $text) !== false;
         assertTrue($exists, 'Record column contains ' . $text);
@@ -181,7 +147,7 @@ class FeatureContext extends SilverStripeContext
     public function iShouldSeeInTheVersionColumn($text, $versionNumber)
     {
         $version = $this->getSpecificVersion($versionNumber);
-        $versionColumn = $version->find('css', '.history-viewer__version-no');
+        $versionColumn = $version->find('css', 'td');
 
         $exists = strpos($versionColumn->getText(), $text) !== false;
         assertTrue($exists, 'Version column contains ' . $text);

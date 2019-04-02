@@ -2,6 +2,7 @@
 
 namespace SilverStripe\Forms\GridField;
 
+use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\SS_List;
 
 /**
@@ -11,17 +12,17 @@ use SilverStripe\ORM\SS_List;
  * component can apply a sort.
  *
  * Generally, the data manipulator will make use of to {@link GridState}
- * variables to decide how to modify the {@link SS_List}.
+ * variables to decide how to modify the {@link DataList}.
  */
 interface GridField_DataManipulator extends GridFieldComponent
 {
 
     /**
-     * Manipulate the {@link SS_List} as needed by this grid modifier.
+     * Manipulate the {@link DataList} as needed by this grid modifier.
      *
      * @param GridField $gridField
      * @param SS_List $dataList
-     * @return SS_List
+     * @return DataList
      */
     public function getManipulatedData(GridField $gridField, SS_List $dataList);
 }

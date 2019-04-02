@@ -8,7 +8,6 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser;
 use PhpParser\ParserFactory;
-use PhpParser\ErrorHandler\ErrorHandler;
 use Psr\SimpleCache\CacheInterface;
 use SilverStripe\Core\Cache\CacheFactory;
 use SilverStripe\Dev\TestOnly;
@@ -491,13 +490,11 @@ class ClassManifest
             $changed = true;
             // Build from php file parser
             $fileContents = ClassContentRemover::remove_class_content($pathname);
-            // Not injectable, error handling is an implementation detail.
-            $errorHandler = new ClassManifestErrorHandler($pathname);
             try {
-                $stmts = $this->getParser()->parse($fileContents, $errorHandler);
+                $stmts = $this->getParser()->parse($fileContents);
             } catch (Error $e) {
                 // if our mangled contents breaks, try again with the proper file contents
-                $stmts = $this->getParser()->parse(file_get_contents($pathname), $errorHandler);
+                $stmts = $this->getParser()->parse(file_get_contents($pathname));
             }
             $this->getTraverser()->traverse($stmts);
 

@@ -53,7 +53,7 @@ class Read extends ListQueryScaffolder implements OperationResolver, CRUDInterfa
      * @param Member $member
      * @return boolean
      */
-    protected function checkPermission(Member $member = null)
+    protected function checkPermission(Member $member)
     {
         return $this->getDataObjectInstance()->canView($member);
     }

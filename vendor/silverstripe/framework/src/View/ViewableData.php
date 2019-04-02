@@ -108,11 +108,9 @@ class ViewableData implements IteratorAggregate
         // getField() isn't a field-specific getter and shouldn't be treated as such
         if (strtolower($property) !== 'field' && $this->hasMethod($method = "get$property")) {
             return true;
-        }
-        if ($this->hasField($property)) {
+        } elseif ($this->hasField($property)) {
             return true;
-        }
-        if ($this->failover) {
+        } elseif ($this->failover) {
             return isset($this->failover->$property);
         }
 
@@ -131,11 +129,9 @@ class ViewableData implements IteratorAggregate
         // getField() isn't a field-specific getter and shouldn't be treated as such
         if (strtolower($property) !== 'field' && $this->hasMethod($method = "get$property")) {
             return $this->$method();
-        }
-        if ($this->hasField($property)) {
+        } elseif ($this->hasField($property)) {
             return $this->getField($property);
-        }
-        if ($this->failover) {
+        } elseif ($this->failover) {
             return $this->failover->$property;
         }
 
@@ -530,7 +526,7 @@ class ViewableData implements IteratorAggregate
     public function hasValue($field, $arguments = [], $cache = true)
     {
         $result = $this->obj($field, $arguments, $cache);
-        return $result->exists();
+            return $result->exists();
     }
 
     /**
@@ -557,7 +553,7 @@ class ViewableData implements IteratorAggregate
      */
     public function getXMLValues($fields)
     {
-        $result = [];
+        $result = array();
 
         foreach ($fields as $field) {
             $result[$field] = $this->XML_val($field);
@@ -578,7 +574,7 @@ class ViewableData implements IteratorAggregate
      */
     public function getIterator()
     {
-        return new ArrayIterator([$this]);
+        return new ArrayIterator(array($this));
     }
 
     // UTILITY METHODS -------------------------------------------------------------------------------------------------
@@ -615,7 +611,7 @@ class ViewableData implements IteratorAggregate
      * project directory.
      *
      * @return string URL to the current theme
-     * @deprecated 4.0.0:5.0.0 Use $resourcePath or $resourceURL template helpers instead
+     * @deprecated 4.0.0..5.0.0 Use $resourcePath or $resourceURL template helpers instead
      */
     public function ThemeDir()
     {
@@ -646,7 +642,7 @@ class ViewableData implements IteratorAggregate
      */
     public function CSSClasses($stopAtClass = self::class)
     {
-        $classes       = [];
+        $classes       = array();
         $classAncestry = array_reverse(ClassInfo::ancestry(static::class));
         $stopClasses   = ClassInfo::ancestry($stopAtClass);
 

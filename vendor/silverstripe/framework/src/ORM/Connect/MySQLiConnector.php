@@ -73,8 +73,8 @@ class MySQLiConnector extends DBConnector
         $selectedDB = ($selectDB && !empty($parameters['database'])) ? $parameters['database'] : null;
 
         // Connection charset and collation
-        $connCharset = Config::inst()->get(MySQLDatabase::class, 'connection_charset');
-        $connCollation = Config::inst()->get(MySQLDatabase::class, 'connection_collation');
+        $connCharset = Config::inst()->get('SilverStripe\ORM\Connect\MySQLDatabase', 'connection_charset');
+        $connCollation = Config::inst()->get('SilverStripe\ORM\Connect\MySQLDatabase', 'connection_collation');
 
         $this->dbConn = mysqli_init();
 
@@ -186,8 +186,7 @@ class MySQLiConnector extends DBConnector
         $types = '';
         $values = array();
         $blobs = array();
-        $parametersCount = count($parameters);
-        for ($index = 0; $index < $parametersCount; $index++) {
+        for ($index = 0; $index < count($parameters); $index++) {
             $value = $parameters[$index];
             $phpType = gettype($value);
 
@@ -248,13 +247,12 @@ class MySQLiConnector extends DBConnector
         // Because mysqli_stmt::bind_param arguments must be passed by reference
         // we need to do a bit of hackery
         $boundNames = [];
-        $parametersCount = count($parameters);
-        for ($i = 0; $i < $parametersCount; $i++) {
+        for ($i = 0; $i < count($parameters); $i++) {
             $boundName = "param$i";
             $$boundName = $parameters[$i];
             $boundNames[] = &$$boundName;
         }
-        $statement->bind_param(...$boundNames);
+        call_user_func_array(array($statement, 'bind_param'), $boundNames);
     }
 
     public function preparedQuery($sql, $parameters, $errorLevel = E_USER_ERROR)
@@ -295,10 +293,10 @@ class MySQLiConnector extends DBConnector
         $metaData = $statement->result_metadata();
         if ($metaData) {
             return new MySQLStatement($statement, $metaData);
+        } else {
+            // Replicate normal behaviour of ->query() on non-select calls
+            return new MySQLQuery($this, true);
         }
-
-        // Replicate normal behaviour of ->query() on non-select calls
-        return new MySQLQuery($this, true);
     }
 
     public function selectDatabase($name)
@@ -306,9 +304,9 @@ class MySQLiConnector extends DBConnector
         if ($this->dbConn->select_db($name)) {
             $this->databaseName = $name;
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     public function getSelectedDatabase()

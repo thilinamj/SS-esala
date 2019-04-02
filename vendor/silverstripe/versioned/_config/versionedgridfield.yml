@@ -8,14 +8,12 @@ SilverStripe\Forms\GridField\GridFieldDetailForm:
 SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor:
   extensions:
     - SilverStripe\Versioned\VersionedGridFieldStateExtension
-    - SilverStripe\Versioned\VersionedGridFieldArchiveExtension
 SilverStripe\Forms\GridField\GridFieldConfig_Base:
   extensions:
     - SilverStripe\Versioned\VersionedGridFieldStateExtension
 SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor:
   extensions:
     - SilverStripe\Versioned\VersionedGridFieldStateExtension
-    - SilverStripe\Versioned\VersionedGridFieldArchiveExtension
 # Enable gridfield extensions for dataobjects by default
 SilverStripe\ORM\DataObject:
   versioned_gridfield_extensions: true

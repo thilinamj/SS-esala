@@ -128,8 +128,8 @@ class PolymorphicHasManyList extends HasManyList
         $foreignKey = $this->foreignKey;
 
         if (empty($foreignID)
-            || $foreignID == $item->$foreignKey
             || (is_array($foreignID) && in_array($item->$foreignKey, $foreignID))
+            || $foreignID == $item->$foreignKey
         ) {
             $item->$foreignKey = null;
             $item->$classForeignKey = null;

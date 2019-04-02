@@ -164,11 +164,11 @@ class Report extends ViewableData
         if ($this->hasMethod('sourceRecords')) {
             return $this->sourceRecords($params, null, null);
         } else {
-            $query = $this->sourceQuery($params);
-            $results = ArrayList::create();
+            $query = $this->sourceQuery();
+            $results = new ArrayList();
             foreach ($query->execute() as $data) {
                 $class = $this->dataClass();
-                $result = Injector::inst()->create($class, $data);
+                $result = new $class($data);
                 $results->push($result);
             }
             return $results;
@@ -349,7 +349,7 @@ class Report extends ViewableData
         if (Injector::inst()->has(HTTPRequest::class)) {
             /** @var HTTPRequest $request */
             $request = Injector::inst()->get(HTTPRequest::class);
-            $params = $request->param('filters') ?: $request->requestVar('filters') ?: [];
+            $params = $request->param('filters') ?: [];
         }
         $items = $this->sourceRecords($params, null, null);
 
@@ -362,9 +362,7 @@ class Report extends ViewableData
             new GridFieldDataColumns(),
             new GridFieldPaginator()
         );
-        /** @var GridField $gridField */
-        $gridField = GridField::create('Report', null, $items, $gridFieldConfig);
-        /** @var GridFieldDataColumns $columns */
+        $gridField = new GridField('Report', null, $items, $gridFieldConfig);
         $columns = $gridField->getConfig()->getComponentByType(GridFieldDataColumns::class);
         $displayFields = [];
         $fieldCasting = [];

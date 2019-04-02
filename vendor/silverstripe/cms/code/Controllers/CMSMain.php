@@ -12,7 +12,6 @@ use SilverStripe\CMS\BatchActions\CMSBatchAction_Archive;
 use SilverStripe\CMS\BatchActions\CMSBatchAction_Publish;
 use SilverStripe\CMS\BatchActions\CMSBatchAction_Restore;
 use SilverStripe\CMS\BatchActions\CMSBatchAction_Unpublish;
-use SilverStripe\CMS\Controllers\CMSSiteTreeFilter_Search;
 use SilverStripe\CMS\Model\CurrentPageIdentifier;
 use SilverStripe\CMS\Model\RedirectorPage;
 use SilverStripe\CMS\Model\SiteTree;
@@ -22,11 +21,9 @@ use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Control\HTTPResponse_Exception;
-use SilverStripe\Core\Cache\MemberCacheFlusher;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Environment;
-use SilverStripe\Core\Flushable;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\DropdownField;
@@ -54,7 +51,6 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\DB;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\ORM\HiddenClass;
-use SilverStripe\ORM\Hierarchy\Hierarchy;
 use SilverStripe\ORM\Hierarchy\MarkedSet;
 use SilverStripe\ORM\SS_List;
 use SilverStripe\ORM\ValidationResult;
@@ -70,6 +66,8 @@ use SilverStripe\Versioned\ChangeSetItem;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\Requirements;
+use SilverStripe\Core\Flushable;
+use SilverStripe\Core\Cache\MemberCacheFlusher;
 use Translatable;
 
 /**
@@ -112,14 +110,6 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
     private static $required_permission_codes = 'CMS_ACCESS_CMSMain';
 
     /**
-     * Should the archive warning message be dynamic based on the specific content? This is slow on larger sites and can be disabled.
-     *
-     * @config
-     * @var bool
-     */
-    private static $enable_dynamic_archive_warning_message = true;
-
-    /**
      * Amount of results showing on a single page.
      *
      * @config
@@ -139,7 +129,6 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
         'PublishItemsForm',
         'submit',
         'EditForm',
-        'schema',
         'SearchForm',
         'SiteTreeAsUL',
         'getshowdeletedsubtree',
@@ -499,15 +488,10 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
      */
     public function SiteTreeAsUL()
     {
-        $treeClass = $this->config()->get('tree_class');
-        $filter = $this->getSearchFilter();
-
-        DataObject::singleton($treeClass)->prepopulateTreeDataCache(null, [
-            'childrenMethod' => $filter ? $filter->getChildrenMethod() : 'AllChildrenIncludingDeleted',
-            'numChildrenMethod' => $filter ? $filter->getNumChildrenMethod() : 'numChildren',
-        ]);
-
-        $html = $this->getSiteTreeFor($treeClass);
+        // Pre-cache sitetree version numbers for querying efficiency
+        Versioned::prepopulate_versionnumber_cache(SiteTree::class, Versioned::DRAFT);
+        Versioned::prepopulate_versionnumber_cache(SiteTree::class, Versioned::LIVE);
+        $html = $this->getSiteTreeFor($this->config()->get('tree_class'));
 
         $this->extend('updateSiteTreeAsUL', $html);
 
@@ -884,113 +868,75 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
     }
 
     /**
-     * This provides information required to generate the search form
-     * and can be modified on extensions through updateSearchContext
-     *
-     * @return \SilverStripe\ORM\Search\SearchContext
-     */
-    public function getSearchContext()
-    {
-        $context = SiteTree::singleton()->getDefaultSearchContext();
-
-        $this->extend('updateSearchContext', $context);
-
-        return $context;
-    }
-
-    /**
-     * Returns the search form schema for the current model
-     *
-     * @return string
-     */
-    public function getSearchFieldSchema()
-    {
-        $schemaUrl = $this->Link('schema/SearchForm');
-
-        $context = $this->getSearchContext();
-        $params = $this->getRequest()->requestVar('q') ?: [];
-        $context->setSearchParams($params);
-
-        $placeholder = _t('SilverStripe\\CMS\\Search\\SearchForm.FILTERLABELTEXT', 'Search') . ' "' .
-            SiteTree::singleton()->i18n_plural_name() . '"';
-
-        $searchParams = $context->getSearchParams();
-
-        $searchParams = array_combine(array_map(function ($key) {
-            return 'Search__' . $key;
-        }, array_keys($searchParams)), $searchParams);
-
-        $schema = [
-            'formSchemaUrl' => $schemaUrl,
-            'name' => 'Term',
-            'placeholder' => $placeholder,
-            'filters' => $searchParams ?: new \stdClass // stdClass maps to empty json object '{}'
-        ];
-
-        return Convert::raw2json($schema);
-    }
-
-    /**
      * Returns a Form for page searching for use in templates.
      *
      * Can be modified from a decorator by a 'updateSearchForm' method
      *
      * @return Form
      */
-    public function getSearchForm()
+    public function SearchForm()
     {
         // Create the fields
-        $dateFrom = DateField::create(
-            'Search__LastEditedFrom',
+        $content = new TextField('q[Term]', _t('SilverStripe\\CMS\\Search\\SearchForm.FILTERLABELTEXT', 'Search'));
+        $dateFrom = new DateField(
+            'q[LastEditedFrom]',
             _t('SilverStripe\\CMS\\Search\\SearchForm.FILTERDATEFROM', 'From')
-        )->setLocale(Security::getCurrentUser()->Locale);
-        $dateTo = DateField::create(
-            'Search__LastEditedTo',
-            _t('SilverStripe\\CMS\\Search\\SearchForm.FILTERDATETO', 'To')
-        )->setLocale(Security::getCurrentUser()->Locale);
-        $filters = CMSSiteTreeFilter::get_all_filters();
-        // Remove 'All pages' as we set that to empty/default value
-        unset($filters[CMSSiteTreeFilter_Search::class]);
-        $pageFilter = DropdownField::create(
-            'Search__FilterClass',
-            _t('SilverStripe\\CMS\\Controllers\\CMSMain.PAGES', 'Page status'),
-            $filters
         );
-        $pageFilter->setEmptyString(_t('SilverStripe\\CMS\\Controllers\\CMSMain.PAGESALLOPT', 'All pages'));
-        $pageClasses = DropdownField::create(
-            'Search__ClassName',
+        $dateTo = new DateField(
+            'q[LastEditedTo]',
+            _t('SilverStripe\\CMS\\Search\\SearchForm.FILTERDATETO', 'To')
+        );
+        $pageFilter = new DropdownField(
+            'q[FilterClass]',
+            _t('SilverStripe\\CMS\\Controllers\\CMSMain.PAGES', 'Page status'),
+            CMSSiteTreeFilter::get_all_filters()
+        );
+        $pageClasses = new DropdownField(
+            'q[ClassName]',
             _t('SilverStripe\\CMS\\Controllers\\CMSMain.PAGETYPEOPT', 'Page type', 'Dropdown for limiting search to a page type'),
             $this->getPageTypes()
         );
         $pageClasses->setEmptyString(_t('SilverStripe\\CMS\\Controllers\\CMSMain.PAGETYPEANYOPT', 'Any'));
 
         // Group the Datefields
-        $dateGroup = FieldGroup::create(
-            _t('SilverStripe\\CMS\\Search\\SearchForm.PAGEFILTERDATEHEADING', 'Last edited'),
-            [$dateFrom, $dateTo]
-        )->setName('Search__LastEdited')
-        ->addExtraClass('fieldgroup--fill-width');
+        $dateGroup = new FieldGroup(
+            $dateFrom,
+            $dateTo
+        );
+        $dateGroup->setTitle(_t('SilverStripe\\CMS\\Search\\SearchForm.PAGEFILTERDATEHEADING', 'Last edited'));
 
         // Create the Field list
         $fields = new FieldList(
+            $content,
             $pageFilter,
             $pageClasses,
             $dateGroup
         );
 
+        // Create the Search and Reset action
+        $actions = new FieldList(
+            FormAction::create('doSearch', _t('SilverStripe\\CMS\\Controllers\\CMSMain.APPLY_FILTER', 'Search'))
+                ->addExtraClass('btn btn-primary'),
+            FormAction::create('clear', _t('SilverStripe\\CMS\\Controllers\\CMSMain.CLEAR_FILTER', 'Clear'))
+                ->setAttribute('type', 'reset')
+                ->addExtraClass('btn btn-secondary')
+        );
+
+        // Use <button> to allow full jQuery UI styling on the all of the Actions
+        /** @var FormAction $action */
+        foreach ($actions->dataFields() as $action) {
+            /** @var FormAction $action */
+            $action->setUseButtonTag(true);
+        }
+
         // Create the form
         /** @skipUpgrade */
-        $form = Form::create(
-            $this,
-            'SearchForm',
-            $fields,
-            new FieldList()
-        );
-        $form->addExtraClass('cms-search-form');
-        $form->setFormMethod('GET');
-        $form->setFormAction(CMSMain::singleton()->Link());
-        $form->disableSecurityToken();
-        $form->unsetValidator();
+        $form = Form::create($this, 'SearchForm', $fields, $actions)
+            ->addExtraClass('cms-search-form')
+            ->setFormMethod('GET')
+            ->setFormAction(CMSMain::singleton()->Link())
+            ->disableSecurityToken()
+            ->unsetValidator();
 
         // Load the form with previously sent search data
         $form->loadDataFrom($this->getRequest()->getVars());
@@ -1045,21 +991,6 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
     public function Breadcrumbs($unlinked = false)
     {
         $items = new ArrayList();
-
-        if ($this->TreeIsFiltered()) {
-            $items->push(new ArrayData([
-                'Title' => CMSPagesController::menu_title(),
-                'Link' => ($unlinked) ? false : $this->LinkPages()
-            ]));
-            $items->push(new ArrayData([
-                'Title' => _t('SilverStripe\\CMS\\Controllers\\CMSMain.SEARCHRESULTS', 'Search results'),
-                'Link' => ($unlinked) ? false : $this->LinkPages()
-            ]));
-
-            $this->extend('updateBreadcrumbs', $items);
-
-            return $items;
-        }
 
         // Check if we are editing a page
         /** @var SiteTree $record */
@@ -1422,54 +1353,35 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
      * @param SiteTree $record
      * @return string
      */
-    /**
-     * Build an archive warning message based on the page's children
-     *
-     * @param SiteTree $record
-     * @return string
-     */
     protected function getArchiveWarningMessage($record)
     {
-
-        $defaultMessage = _t('SilverStripe\\CMS\\Controllers\\CMSMain.ArchiveWarningWithChildren', 'Warning: This page and all of its child pages will be unpublished before being sent to the archive.\n\nAre you sure you want to proceed?');
-
-        // Option to disable this feature as it is slow on large sites
-        if (!$this->config()->enable_dynamic_archive_warning_message) {
-            return $defaultMessage;
-        }
-
         // Get all page's descendants
-        $descendants = [];
-        $this->collateDescendants([$record->ID], $descendants);
+        $record->collateDescendants(true, $descendants);
         if (!$descendants) {
             $descendants = [];
         }
 
-        // Get the IDs of all changeset including at least one of the pages.
-        $descendants[] = $record->ID;
-        $inChangeSetIDs = ChangeSetItem::get()->filter([
-            'ObjectID' => $descendants,
-            'ObjectClass' => SiteTree::class
-        ])->column('ChangeSetID');
+        // Get all campaigns that the page and its descendants belong to
+        $inChangeSetIDs = ChangeSetItem::get_for_object($record)->column('ChangeSetID');
 
-        // Count number of affected change set
-        $affectedChangeSetCount = 0;
-        if (count($inChangeSetIDs) > 0) {
-            $affectedChangeSetCount = ChangeSet::get()
-                ->filter(['ID' => $inChangeSetIDs, 'State' => ChangeSet::STATE_OPEN])
-                ->count();
+        foreach ($descendants as $page) {
+            $inChangeSetIDs = array_merge($inChangeSetIDs, ChangeSetItem::get_for_object($page)->column('ChangeSetID'));
         }
 
-        $numCampaigns = ChangeSet::singleton()->i18n_pluralise($affectedChangeSetCount);
+        if (count($inChangeSetIDs) > 0) {
+            $inChangeSets = ChangeSet::get()->filter(['ID' => $inChangeSetIDs, 'State' => ChangeSet::STATE_OPEN]);
+        } else {
+            $inChangeSets = new ArrayList();
+        }
+
+        $numCampaigns = ChangeSet::singleton()->i18n_pluralise($inChangeSets->count());
         $numCampaigns = mb_strtolower($numCampaigns);
 
-        if (count($descendants) > 0 && $affectedChangeSetCount > 0) {
+        if (count($descendants) > 0 && $inChangeSets->count() > 0) {
             $archiveWarningMsg = _t('SilverStripe\\CMS\\Controllers\\CMSMain.ArchiveWarningWithChildrenAndCampaigns', 'Warning: This page and all of its child pages will be unpublished and automatically removed from their associated {NumCampaigns} before being sent to the archive.\n\nAre you sure you want to proceed?', [ 'NumCampaigns' => $numCampaigns ]);
         } elseif (count($descendants) > 0) {
-            $archiveWarningMsg = $defaultMessage;
-        } elseif ($inChangeSets->count() > 0) {
             $archiveWarningMsg = _t('SilverStripe\\CMS\\Controllers\\CMSMain.ArchiveWarningWithChildren', 'Warning: This page and all of its child pages will be unpublished before being sent to the archive.\n\nAre you sure you want to proceed?');
-        } elseif ($affectedChangeSetCount > 0) {
+        } elseif ($inChangeSets->count() > 0) {
             $archiveWarningMsg = _t('SilverStripe\\CMS\\Controllers\\CMSMain.ArchiveWarningWithCampaigns', 'Warning: This page will be unpublished and automatically removed from their associated {NumCampaigns} before being sent to the archive.\n\nAre you sure you want to proceed?', [ 'NumCampaigns' => $numCampaigns ]);
         } else {
             $archiveWarningMsg = _t('SilverStripe\\CMS\\Controllers\\CMSMain.ArchiveWarning', 'Warning: This page will be unpublished before being sent to the archive.\n\nAre you sure you want to proceed?');
@@ -1477,27 +1389,6 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
 
         return $archiveWarningMsg;
     }
-
-    /**
-     * Find IDs of all descendant pages for the provided ID lists.
-     * @param int[] $recordIDs
-     * @param array $collator
-     * @return bool
-     */
-    protected function collateDescendants($recordIDs, &$collator)
-    {
-
-        $children = SiteTree::get()->filter(['ParentID' => $recordIDs])->column();
-        if ($children) {
-            foreach ($children as $item) {
-                $collator[] = $item;
-            }
-            $this->collateDescendants($children, $collator);
-            return true;
-        }
-        return false;
-    }
-
 
     /**
      * This method exclusively handles deferred ajax requests to render the
@@ -1579,8 +1470,8 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
     /**
      * Safely reconstruct a selected filter from a given set of query parameters
      *
-     * @param array $params Query parameters to use, or null if none present
-     * @return CMSSiteTreeFilter The filter class
+     * @param array $params Query parameters to use
+     * @return CMSSiteTreeFilter The filter class, or null if none present
      * @throws InvalidArgumentException if invalid filter class is passed.
      */
     protected function getQueryFilter($params)
@@ -1623,10 +1514,6 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
     {
         $params = $this->getRequest()->requestVar('q');
         $parentID = $this->getRequest()->requestVar('ParentID');
-        // Set default filter if other params are set
-        if ($params && empty($params['FilterClass'])) {
-            $params['FilterClass'] = CMSSiteTreeFilter_Search::class;
-        }
         $list = $this->getList($params, $parentID);
         $gridFieldConfig = GridFieldConfig::create()->addComponents(
             new GridFieldSortableHeader(),
@@ -2247,7 +2134,7 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
         if (($id = $this->urlParams['ID']) && is_numeric($id)) {
             /** @var SiteTree $page */
             $page = SiteTree::get()->byID($id);
-            if ($page && !$page->canCreate(null, ['Parent' => $page->Parent()])) {
+            if ($page && (!$page->canEdit() || !$page->canCreate(null, array('Parent' => $page->Parent())))) {
                 return Security::permissionFailure($this);
             }
             if (!$page || !$page->ID) {
@@ -2276,8 +2163,9 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
             $this->getResponse()->addHeader('X-Pjax', 'Content');
 
             return $this->getResponseNegotiator()->respond($this->getRequest());
+        } else {
+            return new HTTPResponse("CMSMain::duplicate() Bad ID: '$id'", 400);
         }
-        return new HTTPResponse("CMSMain::duplicate() Bad ID: '$id'", 400);
     }
 
     public function duplicatewithchildren($request)
@@ -2290,7 +2178,7 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
         if (($id = $this->urlParams['ID']) && is_numeric($id)) {
             /** @var SiteTree $page */
             $page = SiteTree::get()->byID($id);
-            if ($page && !$page->canCreate(null, ['Parent' => $page->Parent()])) {
+            if ($page && (!$page->canEdit() || !$page->canCreate(null, array('Parent' => $page->Parent())))) {
                 return Security::permissionFailure($this);
             }
             if (!$page || !$page->ID) {
@@ -2313,8 +2201,9 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
             $this->getResponse()->addHeader('X-Pjax', 'Content');
 
             return $this->getResponseNegotiator()->respond($this->getRequest());
+        } else {
+            return new HTTPResponse("CMSMain::duplicatewithchildren() Bad ID: '$id'", 400);
         }
-        return new HTTPResponse("CMSMain::duplicatewithchildren() Bad ID: '$id'", 400);
     }
 
     public function providePermissions()
