@@ -2,4 +2,5 @@
 /themes/simple
 /esalaflora/node_modules
 node_modules
+/vendor/
 # END of GitIgnoreEditor
