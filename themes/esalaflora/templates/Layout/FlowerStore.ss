@@ -98,7 +98,7 @@
                         <li><a class="sim-thumb" data-image="{$ThemeDir}/static/images/cms/hydrengea/1.jpg"><img src="{$ThemeDir}/static/images/cms/hydrengea/1.jpg" alt=""></a></li>
                         <li><a class="sim-thumb" data-image="{$ThemeDir}/static/images/cms/hydrengea/3.jpg"><img src="{$ThemeDir}/static/images/cms/hydrengea/3.jpg" alt=""></a></li>
                         <li><a class="sim-thumb" data-image="{$ThemeDir}/static/images/cms/hydrengea/4.jpg"><img src="{$ThemeDir}/static/images/cms/hydrengea/4.jpg" alt=""></a></li>
-                        <li><a class="sim-thumb" data-image="{$ThemeDir}/static/images/cms/hydrengea/2.jpg"><img src="{$ThemeDir}/static/images/cms/hydrengea/2.jpg" alt=""></a></li>
+                        <li><a class="sim-thumb" data-image="{$ThemeDir}/static/images/cms/hydrengea/7.jpg"><img src="{$ThemeDir}/static/images/cms/hydrengea/7.jpg" alt=""></a></li>
                     </ul>
                 </div>
             </div>
