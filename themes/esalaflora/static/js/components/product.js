@@ -6,7 +6,6 @@ if($('.product-image-gallery') && $('.product-image-gallery').length > 0){
         $.each(smallimgs , function( index, value ) {
             let cls = $(this).attr("data-image");
             $(this).click(() => {
-
                 largeimg .attr('src', $(this).data('image'));
             });
         });

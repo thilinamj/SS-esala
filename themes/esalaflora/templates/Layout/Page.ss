@@ -71,7 +71,7 @@
                     <img src="{$ThemeDir}/static/images/cms/products/1.jpg" class="card-block__img">
                 </a>
                 <div class="card-section">
-                    <h4>Flower Store</h4>
+                    <h3>Flower Store</h3>
                     <p>Select flowers as preference.All colours and fragrance to light your dream day.</p>
                 </div>
             </div>
@@ -83,7 +83,7 @@
                     <img src="{$ThemeDir}/static/images/cms/products/2.jpg " class="card-block__img">
                 </a>
                 <div class="card-section">
-                    <h4>Gift & Celebrations</h4>
+                    <h3>Gift & Celebrations</h3>
                     <p>Each flower is secret agent of unique message.Gift flowers give message for your lovers.</p>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                     <img src="{$ThemeDir}/static/images/cms/products/wedding 1.jpg" class="card-block__img" >
                 </a>
                 <div class="card-section">
-                    <h4>Wedding</h4>
+                    <h3>Wedding</h3>
                     <p>Flowers are the laugh of earth,God forgot to put soul in to it.Explore the world of flowers! </p>
                 </div>
             </div>
