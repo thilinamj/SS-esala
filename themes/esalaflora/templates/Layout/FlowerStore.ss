@@ -10,41 +10,16 @@
     </div>
 </section>
 
-
-
-<%--<div class="flower-list">--%>
-<%--<div class="grid-container">--%>
-<%--<div class="Alstromeria">--%>
-<%--<div class="grid-x grid-margin-x ">--%>
-<%--<div class="cell small-6 medium-2 flower-list__card">--%>
-<%--<div class="card">--%>
-<%--<a href="#">--%>
-<%--<img src="{$ThemeDir}/static/images/cms/alstomera/4.jpg" class="card-block__img">--%>
-<%--</a>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--<div class="cell small-6 medium-2 flower-list__card">--%>
-<%--<div class="card">--%>
-<%--<a href="#">--%>
-<%--<img src="{$ThemeDir}/static/images/cms/Store/Alstromeria 25" class="card-block__img">--%>
-<%--</a>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</div>--%>
-
-
 <div class="products">
     <div class="grid-container">
         <div class=" grid-x product-item">
-            <div class="cell small-6 medium-3 large-3 product-one">
+            <div class="cell small-6 medium-3 large-3 products-one">
                 <div class="title">
-                    <h6>Alstomera(Rs.25.00)</h6>
+                    <h6>Alstomera</h6>
+                    <p>Rs.25.00</p>
                 </div>
                 <div class="product-image-gallery">
-                    <img class="pdp-product-image" id="main-product-image"
+                    <img class="pdp-product-image" id="main-products-image"
                          src="{$ThemeDir}/static/images/cms/alstomera/1.jpg" alt="">
                     <br>
                     <ul class="menu product-thumbs align-center">
@@ -56,13 +31,13 @@
             </div>
 
 
-
-            <div class="cell small-6 medium-3 large-3 product-one">
+            <div class="cell small-6 medium-3 large-3 products-one">
                 <div class="title">
                 <h6>Bouquets</h6>
+                    <p>Rs.25.00</p>
                 </div>
                 <div class="product-image-gallery">
-                    <img class="pdp-product-image" id="main-product-imag"
+                    <img class="pdp-product-image" id="main-products-imag"
                          src="{$ThemeDir}/static/images/cms/Bouquets/3.jpg" alt="">
                     <br>
                     <ul class="menu product-thumbs align-center">
@@ -74,12 +49,13 @@
             </div>
 
 
-            <div class="cell small-6 medium-3 large-3 product-one">
+            <div class="cell small-6 medium-3 large-3 products-one">
                 <div class="title">
-                    <h6>Chrysanthimum(Rs 100.00)</h6>
+                    <h6>Chrysanthimum</h6>
+                    <p>Rs.100.00</p>
                 </div>
                 <div class="product-image-gallery">
-                    <img class="pdp-product-image" id="main-product-image"
+                    <img class="pdp-product-image" id="main-products-image"
                          src="{$ThemeDir}/static/images/cms/chrysanthimum/1.jpg" alt="">
                     <br>
                     <ul class="menu product-thumbs align-center">
@@ -91,12 +67,13 @@
                 </div>
             </div>
 
-            <div class="cell small-6 medium-3 large-3 product-one">
+            <div class="cell small-6 medium-3 large-3 products-one">
                 <div class="title">
-                    <h6>gerbera(Rs 50.00)</h6>
+                    <h6>gerbera</h6>
+                    <p>Rs.50.00</p>
                 </div>
                 <div class="product-image-gallery">
-                    <img class="pdp-product-image" id="main-product-image"
+                    <img class="pdp-product-image" id="main-products-image"
                          src="{$ThemeDir}/static/images/cms/gerbera/2.jpg" alt="">
                     <br>
                     <ul class="menu product-thumbs align-center">
@@ -110,10 +87,11 @@
 
             <div class="cell small-6 medium-3 large-3 products-one">
                 <div class="title">
-                    <h6>hydrengea(Rs 30.00)</h6>
+                    <h6>hydrengea</h6>
+                    <p>Rs.30.00</p>
                 </div>
                 <div class="product-image-gallery">
-                    <img class="pdp-product-image" id="main-product-image"
+                    <img class="pdp-product-image" id="main-products-image"
                          src="{$ThemeDir}/static/images/cms/hydrengea/1.jpg" alt="">
                     <br>
                     <ul class="menu product-thumbs align-center">
@@ -127,10 +105,11 @@
 
             <div class="cell small-6 medium-3 large-3 products-one">
                 <div class="title">
-                    <h6>Rose(Rs 100.00)</h6>
+                    <h6>Rose</h6>
+                    <p>Rs.100.00</p>
                 </div>
                 <div class="product-image-gallery">
-                    <img class="pdp-product-image" id="main-product-image"
+                    <img class="pdp-product-image" id="main-products-image"
                          src="{$ThemeDir}/static/images/cms/rose/1.jpg" alt="">
                     <br>
                     <ul class="menu product-thumbs align-center">
