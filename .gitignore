@@ -3,4 +3,16 @@
 /esalaflora/node_modules
 node_modules
 /vendor/
-# END of GitIgnoreEditor
+*.buildpath
+*.codekit*
+*.DS_Store
+*.idea
+*.log
+*.project
+*.sass-cache
+*.settings
+*.sublime-*
+*prepros.cfg
+*Thumbs.db
+*web.config
+
