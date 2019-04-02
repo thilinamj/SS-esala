@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="034e4360-d45f-48a9-97a7-4d9b3dbe1adc" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/themes/esalaflora/templates/Layout/FlowerStore.ss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="294">
+              <caret line="139" column="147" selection-start-line="139" selection-start-column="147" selection-end-line="139" selection-end-column="147" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../reynolds/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" selection-start-line="4" selection-end-line="5" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/hydrengea/1.jpg">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/gerbera/3.jpg">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/gerbera/2.jpg">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/themes/esalaflora/templates/Page.ss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/scss/components/_header.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" selection-start-line="20" selection-end-line="20" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/scss/components/_mobile-menu.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/scss/components/elements/_flowerstore.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="748">
+              <caret line="44" column="2" selection-start-line="44" selection-start-column="2" selection-end-line="44" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>rad</find>
+      <find>ligh</find>
+      <find>foundation.util.imageLoader.js</find>
+      <find>.slick-slide</find>
+      <find>.slick-slide{margin</find>
+      <find>margin</find>
+      <find>slick</find>
+      <find>bg-image</find>
+      <find>hero.png</find>
+      <find>hero</find>
+      <find>card-block__content</find>
+      <find>max</find>
+      <find>sample-site</find>
+      <find>`</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>flower-list__card</replace>
+      <replace>esalaflora</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>C:\Users\silverstripers\work\SS-esala</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/app/src/ContactPage.php" />
+        <option value="$PROJECT_DIR$/app/src/ContactUs.php" />
+        <option value="$PROJECT_DIR$/app/src/ContactUsController.php" />
+        <option value="$PROJECT_DIR$/app/src/FlowerStore.php" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/js/components/slick.js" />
+        <option value="$PROJECT_DIR$/app/src/PageController.php" />
+        <option value="$PROJECT_DIR$/app/src/Service.php" />
+        <option value="$PROJECT_DIR$/app/src/ServiceController.php" />
+        <option value="$PROJECT_DIR$/app/src/FlowerStoreController.php" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/pages/FlowerStory.scss" />
+        <option value="$PROJECT_DIR$/app/src/FlowerStory.php" />
+        <option value="$PROJECT_DIR$/app/src/FlowerStoryAdmin.php" />
+        <option value="$PROJECT_DIR$/themes/sample-site/templates/Layout/FlowerStory.ss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/templates/Layout/RegionsPage.ss" />
+        <option value="$PROJECT_DIR$/app/src/RegionsPage.php" />
+        <option value="$PROJECT_DIR$/app/src/Region.php" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/pages/Region.scss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/pages/FlowerStore.scss" />
+        <option value="$PROJECT_DIR$/app/_config/theme.yml" />
+        <option value="$PROJECT_DIR$/app/_config.php" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/shared/_slick.scss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/elements/_social-links.scss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/templates/Includes/MobileMenu.ss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/_mobile-menu.scss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/_footer.scss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/pages/_page.scss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/pages/_contact.scss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/templates/Layout/ContactUs.ss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/templates/Includes/Footer.ss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/templates/Includes/Header.ss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/templates/Layout/Page.ss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/elements/_cards.scss" />
+        <option value="C:/xampp/php/php.ini" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/js/components/product.js" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/js/common.js" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/app.scss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/elements/_hero.scss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/templates/Layout/FlowerStore.ss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/pages/_FlowerStore.scss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/elements/_flowerstore.scss" />
+        <option value="$PROJECT_DIR$/themes/sample-site/static/scss/components/_header.scss" />
+        <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/themes/esalaflora/templates/Layout/Page.ss" />
+        <option value="$PROJECT_DIR$/themes/esalaflora/static/js/components/product.js" />
+        <option value="$PROJECT_DIR$/themes/esalaflora/templates/Page.ss" />
+        <option value="$PROJECT_DIR$/themes/esalaflora/static/scss/components/elements/_flowerstore.scss" />
+        <option value="$PROJECT_DIR$/themes/esalaflora/static/scss/components/_header.scss" />
+        <option value="$PROJECT_DIR$/themes/esalaflora/static/scss/components/_mobile-menu.scss" />
+        <option value="$PROJECT_DIR$/themes/esalaflora/templates/Layout/FlowerStore.ss" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/m1/env" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/vendor/embed/embed" />
+      <path value="$PROJECT_DIR$/vendor/jonom/focuspoint" />
+      <path value="$PROJECT_DIR$/vendor/marcj/topsort" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/league/csv" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem" />
+      <path value="$PROJECT_DIR$/vendor/gdmedia/ss-auto-git-ignore" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit-mock-objects" />
+      <path value="$PROJECT_DIR$/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/vendor/symfony/cache" />
+      <path value="$PROJECT_DIR$/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-apcu" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/webonyx/graphql-php" />
+      <path value="$PROJECT_DIR$/vendor/bummzack/sortablefile" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/symbiote/silverstripe-gridfieldextensions" />
+      <path value="$PROJECT_DIR$/vendor/dnadesign/silverstripe-elemental" />
+      <path value="$PROJECT_DIR$/vendor/dnadesign/silverstripe-elemental-virtual" />
+      <path value="$PROJECT_DIR$/vendor/dnadesign/silverstripe-elemental-userforms" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/sheadawson/silverstripe-linkable" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/unclecheese/display-logic" />
+      <path value="$PROJECT_DIR$/vendor/intervention/image" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/cms" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/blog" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/admin" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/assets" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/config" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/graphql" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/reports" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/tagfield" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/errorpage" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/framework" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/userforms" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/versioned" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/lumberjack" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/recipe-cms" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/siteconfig" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/asset-admin" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/recipe-core" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/recipe-plugin" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/segment-field" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/vendor-plugin" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/campaign-admin" />
+      <path value="$PROJECT_DIR$/vendor/silverstripe/versioned-admin" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="757" />
+    <option name="y" value="257" />
+    <option name="width" value="1189" />
+    <option name="height" value="748" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="SS-esala" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SS-esala" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="SS-esala" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="SS-esala" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="themes" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="SS-esala" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="themes" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="esalaflora" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="SS-esala" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="themes" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="esalaflora" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="static" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="SS-esala" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="themes" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="esalaflora" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="static" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="fonts" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="SS-esala" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="themes" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="esalaflora" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="static" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="js" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="SS-esala" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="themes" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="esalaflora" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="static" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="js" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="components" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="SS-esala" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="themes" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="esalaflora" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="static" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="scss" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="SS-esala" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="themes" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="esalaflora" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="static" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="scss" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="components" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="SS-esala" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="themes" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="esalaflora" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="templates" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="editor.config.ad.shown" value="true" />
+    <property name="js.buildTools.gulp.gulp_package_dir" value="$PROJECT_DIR$/themes/node_modules/gulp" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\silverstripers\work\SS-esala\themes\esalaflora\static\images\cms\alstomera" />
+      <recent name="C:\Users\silverstripers\work\SS-esala\vendor\sheadawson" />
+      <recent name="C:\Users\silverstripers\work\SS-esala\themes\esalaflora\static\images\cms\products" />
+      <recent name="C:\Users\silverstripers\work\SS-esala\themes\simple" />
+      <recent name="C:\Users\silverstripers\work\SS-esala\themes\sample-site\static\images\cms\Store" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\silverstripers\work\SS-esala\themes\esalaflora\static\images\cms\rose" />
+      <recent name="C:\Users\silverstripers\work\SS-esala\themes\esalaflora\static\images\cms\hydrengea" />
+      <recent name="C:\Users\silverstripers\work\SS-esala\themes\sample-site\static\images\cms\products" />
+      <recent name="E:\Work\esalaf\themes\sample-site\static\images\cms\products" />
+      <recent name="E:\Work\esalaf\themes\sample-site\static\images\cms\Store" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Gulp.js.default (1)">
+    <configuration name="default (1)" type="js.build_tools.gulp" temporary="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile>$PROJECT_DIR$/themes/sample-site/gulpfile.js</gulpfile>
+      <tasks>
+        <task>default</task>
+      </tasks>
+      <arguments />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="default" type="js.build_tools.gulp" temporary="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile>$PROJECT_DIR$/themes/gulpfile.js</gulpfile>
+      <tasks>
+        <task>default</task>
+      </tasks>
+      <arguments />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gulp.js.default (1)" />
+        <item itemvalue="Gulp.js.default" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="034e4360-d45f-48a9-97a7-4d9b3dbe1adc" name="Default Changelist" comment="" />
+      <created>1548669598895</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1548669598895</updated>
+      <workItem from="1548669607826" duration="2506000" />
+      <workItem from="1548672273750" duration="1692000" />
+      <workItem from="1548674488267" duration="1700000" />
+      <workItem from="1548676863032" duration="2325000" />
+      <workItem from="1548730712100" duration="24675000" />
+      <workItem from="1548766312917" duration="367000" />
+      <workItem from="1548843571327" duration="3934000" />
+      <workItem from="1548927796008" duration="1933000" />
+      <workItem from="1548933418130" duration="1400000" />
+      <workItem from="1548936750502" duration="202000" />
+      <workItem from="1548991574150" duration="24968000" />
+      <workItem from="1549090728086" duration="519000" />
+      <workItem from="1549091389214" duration="1726000" />
+      <workItem from="1549101011560" duration="2799000" />
+      <workItem from="1549163951002" duration="2436000" />
+      <workItem from="1549180110179" duration="9625000" />
+      <workItem from="1549460176093" duration="3824000" />
+      <workItem from="1549501408379" duration="3473000" />
+      <workItem from="1549907057808" duration="4497000" />
+      <workItem from="1549980418805" duration="2092000" />
+      <workItem from="1550070823857" duration="1304000" />
+      <workItem from="1550154110093" duration="1451000" />
+      <workItem from="1550156697017" duration="2421000" />
+      <workItem from="1550999996905" duration="8753000" />
+      <workItem from="1551104011585" duration="7362000" />
+      <workItem from="1551145524803" duration="946000" />
+      <workItem from="1553178951190" duration="7273000" />
+      <workItem from="1553771609376" duration="2669000" />
+      <workItem from="1553844438918" duration="4252000" />
+      <workItem from="1554097694875" duration="1249000" />
+      <workItem from="1554102758024" duration="4923000" />
+      <workItem from="1554111349341" duration="75000" />
+      <workItem from="1554111650448" duration="116000" />
+      <workItem from="1554111809390" duration="5419000" />
+      <workItem from="1554184423589" duration="896000" />
+      <workItem from="1554186197450" duration="10249000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="156051000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24373333" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2892741" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49932885" visible="true" weight="0.3900325" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50067115" side_tool="true" weight="0.23371105" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Scheme.REPL" order="3" side_tool="true" />
+      <window_info anchor="right" id="Database" order="4" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.htaccess">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/templates/Includes/Header.ss" />
+    <entry file="file://C:/xampp/php/php.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="659" column="17" selection-start-line="659" selection-start-column="17" selection-end-line="659" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/static/images/cms/Store/1.jpg" />
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/static/js/common.js" />
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/static/scss/components/elements/_cards.scss" />
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/static/images/cms/1.jpg" />
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/static/scss/components/elements/_social-links.scss" />
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/static/scss/components/elements/_hero.scss" />
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/static/scss/components/_footer.scss" />
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/static/scss/components/pages/_FlowerStore.scss" />
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/static/scss/components/elements/_block.scss" />
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/templates/Layout/FlowerStore.ss" />
+    <entry file="file://$PROJECT_DIR$/themes/simple/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/static/js/components/product.js" />
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/static/scss/app.scss" />
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/static/scss/components/_header.scss" />
+    <entry file="file://$PROJECT_DIR$/themes/sample-site/static/scss/components/elements/_flowerstore.scss" />
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.lock">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="42" column="30" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/slider.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/templates/Layout/Page.ss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/alstomera/1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/Bouquets/1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/Bouquets/4.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/Bouquets/2.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/Bouquets/They make it seem so easy_.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/Bouquets/3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/js/components/product.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/chrysanthimum/4.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/chrysanthimum/5.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/chrysanthimum/7.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/chrysanthimum/1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/chrysanthimum/2.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/chrysanthimum/6.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/Bouquets/4 Simple Baby's Breath Bouquet Bridesmaid Bouquets Wedding Floral Package #weddingflowers.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/chrysanthimum/3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/gerbera/1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/gerbera/4.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/gerbera/3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/gerbera/2.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/images/cms/hydrengea/1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/templates/Page.ss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/scss/components/elements/_flowerstore.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="44" column="2" selection-start-line="44" selection-start-column="2" selection-end-line="44" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/scss/components/_header.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" selection-start-line="20" selection-end-line="20" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/static/scss/components/_mobile-menu.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/esalaflora/templates/Layout/FlowerStore.ss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="139" column="147" selection-start-line="139" selection-start-column="147" selection-end-line="139" selection-end-column="147" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../reynolds/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="4" selection-end-line="5" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
