@@ -55,19 +55,19 @@ class DataObjectScaffolderExtension extends Extension
                     'Published' => [
                         'type' => Type::boolean(),
                         'resolve' => function ($obj) {
-                            return $obj->WasPublished;
+                            return $obj->Published();
                         }
                     ],
                     'LiveVersion' => [
                         'type' => Type::boolean(),
                         'resolve' => function ($obj) {
-                            return $obj->isLiveVersion();
+                            return $obj->LiveVersion();
                         }
                     ],
                     'LatestDraftVersion' => [
                         'type' => Type::boolean(),
                         'resolve' => function ($obj) {
-                            return $obj->isLatestDraftVersion();
+                            return $obj->LatestDraftVersion();
                         }
                     ],
                 ];

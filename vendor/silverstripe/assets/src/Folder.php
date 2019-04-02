@@ -90,13 +90,6 @@ class Folder extends File
         parent::onBeforeDelete();
     }
 
-    public function onBeforeWrite()
-    {
-        parent::onBeforeWrite();
-
-        $this->Title = $this->getField('Name');
-    }
-
     /**
      * Return the relative URL of an icon for this file type
      *

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
+class ComposerStaticInit8b965f0c644152ff73f25a2b42d142d3
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -13,9 +13,9 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '795b01cf23ed94cdbfa9afcee6217952' => __DIR__ . '/..' . '/silverstripe/framework/src/includes/constants.php',
-        'c594688b3441835d5575f3085da4a242' => __DIR__ . '/..' . '/webonyx/graphql-php/src/deprecated.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'c594688b3441835d5575f3085da4a242' => __DIR__ . '/..' . '/webonyx/graphql-php/src/deprecated.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     );
 
@@ -28,6 +28,12 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
         array (
             'Webmozart\\Assert\\' => 17,
         ),
+        'U' => 
+        array (
+            'UncleCheese\\DisplayLogic\\Tests\\Behaviour\\' => 41,
+            'UncleCheese\\DisplayLogic\\Tests\\' => 31,
+            'UncleCheese\\DisplayLogic\\' => 25,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -39,6 +45,8 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\Config\\' => 25,
             'Symfony\\Component\\Cache\\' => 24,
+            'Symbiote\\GridFieldExtensions\\Tests\\' => 35,
+            'Symbiote\\GridFieldExtensions\\' => 29,
             'SilverStripe\\i18n\\Tests\\' => 24,
             'SilverStripe\\i18n\\' => 18,
             'SilverStripe\\View\\Tests\\' => 24,
@@ -49,6 +57,10 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
             'SilverStripe\\VersionedAdmin\\' => 28,
             'SilverStripe\\VendorPlugin\\Tests\\' => 32,
             'SilverStripe\\VendorPlugin\\' => 26,
+            'SilverStripe\\UserForms\\Tests\\' => 29,
+            'SilverStripe\\UserForms\\' => 23,
+            'SilverStripe\\TagField\\Tests\\' => 28,
+            'SilverStripe\\TagField\\' => 22,
             'SilverStripe\\SiteConfig\\Tests\\' => 30,
             'SilverStripe\\SiteConfig\\' => 24,
             'SilverStripe\\Security\\Tests\\' => 28,
@@ -58,6 +70,8 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
             'SilverStripe\\RecipePlugin\\' => 26,
             'SilverStripe\\ORM\\Tests\\' => 23,
             'SilverStripe\\ORM\\' => 17,
+            'SilverStripe\\Lumberjack\\Tests\\' => 30,
+            'SilverStripe\\Lumberjack\\' => 24,
             'SilverStripe\\Logging\\Tests\\' => 27,
             'SilverStripe\\Logging\\' => 21,
             'SilverStripe\\GraphQL\\' => 21,
@@ -80,6 +94,8 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
             'SilverStripe\\CMS\\Tests\\Behaviour\\' => 33,
             'SilverStripe\\CMS\\Tests\\' => 23,
             'SilverStripe\\CMS\\' => 17,
+            'SilverStripe\\Blog\\Tests\\' => 24,
+            'SilverStripe\\Blog\\' => 18,
             'SilverStripe\\Assets\\Tests\\' => 26,
             'SilverStripe\\Assets\\' => 20,
             'SilverStripe\\AssetAdmin\\Tests\\Behat\\Context\\' => 44,
@@ -87,6 +103,8 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
             'SilverStripe\\AssetAdmin\\' => 24,
             'SilverStripe\\Admin\\Tests\\' => 25,
             'SilverStripe\\Admin\\' => 19,
+            'Sheadawson\\Linkable\\Tests\\' => 26,
+            'Sheadawson\\Linkable\\' => 20,
         ),
         'P' => 
         array (
@@ -109,6 +127,11 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
             'League\\Flysystem\\' => 17,
             'League\\Csv\\' => 11,
         ),
+        'J' => 
+        array (
+            'JonoM\\FocusPoint\\Tests\\' => 23,
+            'JonoM\\FocusPoint\\' => 17,
+        ),
         'I' => 
         array (
             'Intervention\\Image\\' => 19,
@@ -126,11 +149,22 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
         array (
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
+            'DNADesign\\Elemental\\Tests\\' => 26,
+            'DNADesign\\Elemental\\' => 20,
+            'DNADesign\\ElementalVirtual\\Tests\\' => 33,
+            'DNADesign\\ElementalVirtual\\' => 27,
+            'DNADesign\\ElementalUserForms\\Tests\\' => 35,
+            'DNADesign\\ElementalUserForms\\' => 29,
         ),
         'C' => 
         array (
             'Composer\\Installers\\' => 20,
             'Composer\\CaBundle\\' => 18,
+        ),
+        'B' => 
+        array (
+            'Bummzack\\SortableFile\\Tests\\' => 28,
+            'Bummzack\\SortableFile\\' => 22,
         ),
     );
 
@@ -144,6 +178,18 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'UncleCheese\\DisplayLogic\\Tests\\Behaviour\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/unclecheese/display-logic/tests/behat/src',
+        ),
+        'UncleCheese\\DisplayLogic\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/unclecheese/display-logic/tests/php',
+        ),
+        'UncleCheese\\DisplayLogic\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/unclecheese/display-logic/src',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
@@ -180,6 +226,14 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
         'Symfony\\Component\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/cache',
+        ),
+        'Symbiote\\GridFieldExtensions\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symbiote/silverstripe-gridfieldextensions/tests',
+        ),
+        'Symbiote\\GridFieldExtensions\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symbiote/silverstripe-gridfieldextensions/src',
         ),
         'SilverStripe\\i18n\\Tests\\' => 
         array (
@@ -221,6 +275,22 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
         array (
             0 => __DIR__ . '/..' . '/silverstripe/vendor-plugin/src',
         ),
+        'SilverStripe\\UserForms\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/silverstripe/userforms/tests',
+        ),
+        'SilverStripe\\UserForms\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/silverstripe/userforms/code',
+        ),
+        'SilverStripe\\TagField\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/silverstripe/tagfield/tests',
+        ),
+        'SilverStripe\\TagField\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/silverstripe/tagfield/src',
+        ),
         'SilverStripe\\SiteConfig\\Tests\\' => 
         array (
             0 => __DIR__ . '/..' . '/silverstripe/siteconfig/tests/php',
@@ -257,6 +327,14 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
         array (
             0 => __DIR__ . '/..' . '/silverstripe/framework/src/ORM',
         ),
+        'SilverStripe\\Lumberjack\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/silverstripe/lumberjack/tests',
+        ),
+        'SilverStripe\\Lumberjack\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/silverstripe/lumberjack/src',
+        ),
         'SilverStripe\\Logging\\Tests\\' => 
         array (
             0 => __DIR__ . '/..' . '/silverstripe/framework/tests/php/Logging',
@@ -276,10 +354,12 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
         'SilverStripe\\Forms\\Tests\\' => 
         array (
             0 => __DIR__ . '/..' . '/silverstripe/framework/tests/php/Forms',
+            1 => __DIR__ . '/..' . '/silverstripe/segment-field/tests',
         ),
         'SilverStripe\\Forms\\' => 
         array (
             0 => __DIR__ . '/..' . '/silverstripe/framework/src/Forms',
+            1 => __DIR__ . '/..' . '/silverstripe/segment-field/code',
         ),
         'SilverStripe\\ErrorPage\\Tests\\' => 
         array (
@@ -345,6 +425,14 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
         array (
             0 => __DIR__ . '/..' . '/silverstripe/cms/code',
         ),
+        'SilverStripe\\Blog\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/silverstripe/blog/tests',
+        ),
+        'SilverStripe\\Blog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/silverstripe/blog/src',
+        ),
         'SilverStripe\\Assets\\Tests\\' => 
         array (
             0 => __DIR__ . '/..' . '/silverstripe/assets/tests/php',
@@ -372,6 +460,14 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
         'SilverStripe\\Admin\\' => 
         array (
             0 => __DIR__ . '/..' . '/silverstripe/admin/code',
+        ),
+        'Sheadawson\\Linkable\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sheadawson/silverstripe-linkable/tests',
+        ),
+        'Sheadawson\\Linkable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sheadawson/silverstripe-linkable/src',
         ),
         'Psr\\SimpleCache\\' => 
         array (
@@ -421,6 +517,14 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
         array (
             0 => __DIR__ . '/..' . '/league/csv/src',
         ),
+        'JonoM\\FocusPoint\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jonom/focuspoint/tests',
+        ),
+        'JonoM\\FocusPoint\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jonom/focuspoint/src',
+        ),
         'Intervention\\Image\\' => 
         array (
             0 => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image',
@@ -445,6 +549,30 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
+        'DNADesign\\Elemental\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dnadesign/silverstripe-elemental/tests',
+        ),
+        'DNADesign\\Elemental\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dnadesign/silverstripe-elemental/src',
+        ),
+        'DNADesign\\ElementalVirtual\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dnadesign/silverstripe-elemental-virtual/tests/php',
+        ),
+        'DNADesign\\ElementalVirtual\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dnadesign/silverstripe-elemental-virtual/src',
+        ),
+        'DNADesign\\ElementalUserForms\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dnadesign/silverstripe-elemental-userforms/tests/php',
+        ),
+        'DNADesign\\ElementalUserForms\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dnadesign/silverstripe-elemental-userforms/src',
+        ),
         'Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
@@ -452,6 +580,14 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
         'Composer\\CaBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/ca-bundle/src',
+        ),
+        'Bummzack\\SortableFile\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bummzack/sortablefile/tests/php',
+        ),
+        'Bummzack\\SortableFile\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bummzack/sortablefile/src',
         ),
     );
 
@@ -461,6 +597,13 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
             'Prophecy\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
+            ),
+        ),
+        'G' => 
+        array (
+            'GDM\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/gdmedia/ss-auto-git-ignore',
             ),
         ),
     );
@@ -936,10 +1079,10 @@ class ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit4e271b37e839bc90c66a66d30a36c5a7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8b965f0c644152ff73f25a2b42d142d3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8b965f0c644152ff73f25a2b42d142d3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit8b965f0c644152ff73f25a2b42d142d3::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit8b965f0c644152ff73f25a2b42d142d3::$classMap;
 
         }, null, ClassLoader::class);
     }

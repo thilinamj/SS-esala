@@ -12,8 +12,6 @@ use SilverStripe\Security\Security;
 
 /**
  * Decorates application bootstrapping with errorcontrolchain
- *
- * @internal This class is designed specifically for use pre-startup and may change without warning
  */
 class ErrorControlChainMiddleware implements HTTPMiddleware
 {
@@ -32,42 +30,27 @@ class ErrorControlChainMiddleware implements HTTPMiddleware
         $this->application = $application;
     }
 
-    /**
-     * @param HTTPRequest $request
-     * @return ConfirmationTokenChain
-     */
-    protected function prepareConfirmationTokenChain(HTTPRequest $request)
-    {
-        $chain = new ConfirmationTokenChain();
-        $chain->pushToken(new URLConfirmationToken('dev/build', $request));
-
-        foreach (['isTest', 'isDev', 'flush'] as $parameter) {
-            $chain->pushToken(new ParameterConfirmationToken($parameter, $request));
-        }
-
-        return $chain;
-    }
-
     public function process(HTTPRequest $request, callable $next)
     {
         $result = null;
 
         // Prepare tokens and execute chain
-        $confirmationTokenChain = $this->prepareConfirmationTokenChain($request);
-        $errorControlChain = new ErrorControlChain();
-        $errorControlChain
-            ->then(function () use ($request, $errorControlChain, $confirmationTokenChain, $next, &$result) {
-                if ($confirmationTokenChain->suppressionRequired()) {
-                    $confirmationTokenChain->suppressTokens();
-                } else {
-                    // If no redirection is necessary then we can disable error supression
-                    $errorControlChain->setSuppression(false);
+        $reloadToken = ParameterConfirmationToken::prepare_tokens(
+            ['isTest', 'isDev', 'flush'],
+            $request
+        );
+        $chain = new ErrorControlChain();
+        $chain
+            ->then(function () use ($request, $chain, $reloadToken, $next, &$result) {
+                // If no redirection is necessary then we can disable error supression
+                if (!$reloadToken) {
+                    $chain->setSuppression(false);
                 }
 
                 try {
                     // Check if a token is requesting a redirect
-                    if ($confirmationTokenChain && $confirmationTokenChain->reloadRequired()) {
-                        $result = $this->safeReloadWithTokens($request, $confirmationTokenChain);
+                    if ($reloadToken && $reloadToken->reloadRequired()) {
+                        $result = $this->safeReloadWithToken($request, $reloadToken);
                     } else {
                         // If no reload necessary, process application
                         $result = call_user_func($next, $request);
@@ -77,16 +60,10 @@ class ErrorControlChainMiddleware implements HTTPMiddleware
                 }
             })
             // Finally if a token was requested but there was an error while figuring out if it's allowed, do it anyway
-            ->thenIfErrored(function () use ($confirmationTokenChain) {
-                if ($confirmationTokenChain && $confirmationTokenChain->reloadRequiredIfError()) {
-                    try {
-                        // Reload requires manual boot
-                        $this->getApplication()->getKernel()->boot(false);
-                    } finally {
-                        // Given we're in an error state here, try to continue even if the kernel boot fails
-                        $result = $confirmationTokenChain->reloadWithTokens();
-                        $result->output();
-                    }
+            ->thenIfErrored(function () use ($reloadToken) {
+                if ($reloadToken && $reloadToken->reloadRequiredIfError()) {
+                    $result = $reloadToken->reloadWithToken();
+                    $result->output();
                 }
             })
             ->execute();
@@ -98,21 +75,21 @@ class ErrorControlChainMiddleware implements HTTPMiddleware
      * or authentication is impossible.
      *
      * @param HTTPRequest $request
-     * @param ConfirmationTokenChain $confirmationTokenChain
+     * @param ParameterConfirmationToken $reloadToken
      * @return HTTPResponse
      */
-    protected function safeReloadWithTokens(HTTPRequest $request, ConfirmationTokenChain $confirmationTokenChain)
+    protected function safeReloadWithToken(HTTPRequest $request, $reloadToken)
     {
         // Safe reload requires manual boot
         $this->getApplication()->getKernel()->boot(false);
 
         // Ensure session is started
         $request->getSession()->init($request);
-        
+
         // Request with ErrorDirector
-        $result = ErrorDirector::singleton()->handleRequestWithTokenChain(
+        $result = ErrorDirector::singleton()->handleRequestWithToken(
             $request,
-            $confirmationTokenChain,
+            $reloadToken,
             $this->getApplication()->getKernel()
         );
         if ($result) {
@@ -120,8 +97,8 @@ class ErrorControlChainMiddleware implements HTTPMiddleware
         }
 
         // Fail and redirect the user to the login page
-        $params = array_merge($request->getVars(), $confirmationTokenChain->params(false));
-        $backURL = $confirmationTokenChain->getRedirectUrlBase() . '?' . http_build_query($params);
+        $params = array_merge($request->getVars(), $reloadToken->params(false));
+        $backURL = $request->getURL() . '?' . http_build_query($params);
         $loginPage = Director::absoluteURL(Security::config()->get('login_url'));
         $loginPage .= "?BackURL=" . urlencode($backURL);
         $result = new HTTPResponse();

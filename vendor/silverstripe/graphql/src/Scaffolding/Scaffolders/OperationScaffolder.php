@@ -109,13 +109,12 @@ abstract class OperationScaffolder implements ConfigurationApplier
     }
 
     /**
-     * Adds args to the operation
+     * Adds visible fields, and optional descriptions.
      *
      * Ex:
      * [
-     *    'MyArg' => 'String!',
-     *    'MyOtherArg' => 'Int',
-     *    'MyCustomArg' => new InputObjectType([
+     *    'MyField' => 'Some description',
+     *    'MyOtherField' // No description
      * ]
      *
      * @param array $argData
@@ -123,9 +122,9 @@ abstract class OperationScaffolder implements ConfigurationApplier
      */
     public function addArgs(array $argData)
     {
-        foreach ($argData as $argName => $type) {
+        foreach ($argData as $argName => $typeStr) {
             $this->removeArg($argName);
-            $this->args->add(new ArgumentScaffolder($argName, $type));
+            $this->args->add(new ArgumentScaffolder($argName, $typeStr));
         }
 
         return $this;
@@ -158,7 +157,6 @@ abstract class OperationScaffolder implements ConfigurationApplier
     public function setArgDescriptions(array $argData)
     {
         foreach ($argData as $argName => $description) {
-            /* @var ArgumentScaffolder $arg */
             $arg = $this->args->find('argName', $argName);
             if (!$arg) {
                 throw new InvalidArgumentException(sprintf(
@@ -197,7 +195,6 @@ abstract class OperationScaffolder implements ConfigurationApplier
     public function setArgDefaults(array $argData)
     {
         foreach ($argData as $argName => $default) {
-            /* @var ArgumentScaffolder $arg */
             $arg = $this->args->find('argName', $argName);
             if (!$arg) {
                 throw new InvalidArgumentException(sprintf(
@@ -223,45 +220,6 @@ abstract class OperationScaffolder implements ConfigurationApplier
     public function setArgDefault($argName, $default)
     {
         return $this->setArgDefaults([$argName => $default]);
-    }
-
-    /**
-     * Sets operation arguments as required or not
-     * [
-     *  'ID' => true
-     * ]
-     * @param array $argData
-     * @return $this
-     */
-    public function setArgsRequired($argData)
-    {
-        foreach ($argData as $argName => $required) {
-            /* @var ArgumentScaffolder $arg */
-            $arg = $this->args->find('argName', $argName);
-            if (!$arg) {
-                throw new InvalidArgumentException(sprintf(
-                    'Tried to make arg %s required, but it was not added to %s',
-                    $argName,
-                    $this->operationName ?: '(unnamed operation)'
-                ));
-            }
-
-            $arg->setRequired($required);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Sets an operation argument as required or not
-     *
-     * @param string $argName
-     * @param boolean $required
-     * @return OperationScaffolder
-     */
-    public function setArgRequired($argName, $required)
-    {
-        return $this->setArgsRequired([$argName => $required]);
     }
 
     /**
@@ -457,7 +415,7 @@ abstract class OperationScaffolder implements ConfigurationApplier
     {
         $args = $this->createDefaultArgs($manager);
         foreach ($this->args as $scaffolder) {
-            $args[$scaffolder->argName] = $scaffolder->toArray($manager);
+            $args[$scaffolder->argName] = $scaffolder->toArray();
         }
         $this->extend('updateArgs', $args, $manager);
         return $args;

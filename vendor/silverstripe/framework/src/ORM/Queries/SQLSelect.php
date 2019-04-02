@@ -238,8 +238,8 @@ class SQLSelect extends SQLConditionalExpression
      * Pass LIMIT clause either as SQL snippet or in array format.
      * Internally, limit will always be stored as a map containing the keys 'start' and 'limit'
      *
-     * @param int|string|array|null $limit If passed as a string or array, assumes SQL escaped data.
-     * Only applies for positive values.
+     * @param int|string|array $limit If passed as a string or array, assumes SQL escaped data.
+     * Only applies for positive values, or if an $offset is set as well.
      * @param int $offset
      * @throws InvalidArgumentException
      * @return $this Self reference
@@ -250,18 +250,10 @@ class SQLSelect extends SQLConditionalExpression
             throw new InvalidArgumentException("SQLSelect::setLimit() only takes positive values");
         }
 
-        if ($limit === 0) {
-            Deprecation::notice(
-                '4.3',
-                "setLimit(0) is deprecated in SS4. To clear limit, call setLimit(null). " .
-                    "In SS5 a limit of 0 will instead return no records."
-            );
-        }
-
         if (is_numeric($limit) && ($limit || $offset)) {
             $this->limit = array(
-                'start' => (int)$offset,
-                'limit' => (int)$limit,
+                'start' => $offset,
+                'limit' => $limit,
             );
         } elseif ($limit && is_string($limit)) {
             if (strpos($limit, ',') !== false) {
@@ -271,12 +263,12 @@ class SQLSelect extends SQLConditionalExpression
             }
 
             $this->limit = array(
-                'start' => (int)$start,
-                'limit' => (int)$innerLimit,
+                'start' => trim($start),
+                'limit' => trim($innerLimit),
             );
         } elseif ($limit === null && $offset) {
             $this->limit = array(
-                'start' => (int)$offset,
+                'start' => $offset,
                 'limit' => $limit
             );
         } else {
@@ -489,7 +481,7 @@ class SQLSelect extends SQLConditionalExpression
      *
      * @see SQLSelect::addWhere() for syntax examples
      *
-     * @param mixed $having Predicate(s) to set, as escaped SQL statements or parameterised queries
+     * @param mixed $having Predicate(s) to set, as escaped SQL statements or paramaterised queries
      * @param mixed $having,... Unlimited additional predicates
      * @return $this Self reference
      */
@@ -505,7 +497,7 @@ class SQLSelect extends SQLConditionalExpression
      *
      * @see SQLSelect::addWhere() for syntax examples
      *
-     * @param mixed $having Predicate(s) to set, as escaped SQL statements or parameterised queries
+     * @param mixed $having Predicate(s) to set, as escaped SQL statements or paramaterised queries
      * @param mixed $having,... Unlimited additional predicates
      * @return $this Self reference
      */

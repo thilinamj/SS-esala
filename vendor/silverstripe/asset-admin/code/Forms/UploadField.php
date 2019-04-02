@@ -157,11 +157,6 @@ class UploadField extends FormField implements FileHandleField
             return (new HTTPResponse(json_encode($result), 400))
                 ->addHeader('Content-Type', 'application/json');
         }
-        
-        // We need an ID for getObjectFromData
-        if (!$file->isInDB()) {
-            $file->write();
-        }
 
         // Return success response
         $result = [
@@ -210,7 +205,7 @@ class UploadField extends FormField implements FileHandleField
         $assetAdmin = AssetAdmin::singleton();
         $fileData = [];
         foreach ($this->getItems() as $file) {
-            $fileData[] = $assetAdmin->getMinimalistObjectFromData($file);
+            $fileData[] = $assetAdmin->getObjectFromData($file);
         }
         return $fileData;
     }

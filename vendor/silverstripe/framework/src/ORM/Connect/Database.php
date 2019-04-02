@@ -11,7 +11,6 @@ use SilverStripe\ORM\Queries\SQLUpdate;
 use SilverStripe\ORM\Queries\SQLInsert;
 use BadMethodCallException;
 use Exception;
-use SilverStripe\Dev\Backtrace;
 
 /**
  * Abstract database connectivity class.
@@ -213,16 +212,11 @@ abstract class Database
             $result = $callback($sql);
             $endtime = round(microtime(true) - $starttime, 4);
             // replace parameters as closely as possible to what we'd expect the DB to put in
-            if (in_array(strtolower($_REQUEST['showqueries']), ['inline', 'backtrace'])) {
+            if (strtolower($_REQUEST['showqueries']) == 'inline') {
                 $sql = DB::inline_parameters($sql, $parameters);
             }
             $queryCount = sprintf("%04d", $this->queryCount);
             Debug::message("\n$queryCount: $sql\n{$endtime}s\n", false);
-
-            // Show a backtrace if ?showqueries=backtrace
-            if ($_REQUEST['showqueries'] === 'backtrace') {
-                Backtrace::backtrace();
-            }
             return $result;
         } else {
             return $callback($sql);

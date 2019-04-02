@@ -453,14 +453,6 @@ class TreeDropdownField extends FormField
         /** @var DataObject|Hierarchy $obj */
         $obj = null;
         $sourceObject = $this->getSourceObject();
-
-        // Precache numChildren count if possible.
-        if ($this->getNumChildrenMethod() == 'numChildren') {
-            // We're not calling `Hierarchy::prepopulateTreeDataCache()` because we're not customising results based
-            // on version or Fluent locales. So there would be no performance gain from additional caching.
-            Hierarchy::prepopulate_numchildren_cache($sourceObject);
-        }
-
         if ($id && !$request->requestVar('forceFullTree')) {
             $obj = DataObject::get_by_id($sourceObject, $id);
             $isSubTree = true;
@@ -608,7 +600,7 @@ class TreeDropdownField extends FormField
     /**
      * HTML-encoded label for this node, including css classes and other markup.
      *
-     * @deprecated 4.0.0:5.0.0 Use setTitleField()
+     * @deprecated 4.0...5.0 Use setTitleField()
      * @param string $field
      * @return $this
      */
@@ -621,7 +613,7 @@ class TreeDropdownField extends FormField
     /**
      * HTML-encoded label for this node, including css classes and other markup.
      *
-     * @deprecated 4.0.0:5.0.0 Use getTitleField()
+     * @deprecated 4.0...5.0 Use getTitleField()
      * @return string
      */
     public function getLabelField()

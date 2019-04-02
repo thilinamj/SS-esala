@@ -43,7 +43,6 @@ class CMSPageHistoryViewerController extends CMSMain
             $fieldList = FieldList::create(
                 HiddenField::create('ID', null, $record->ID),
                 HistoryViewerField::create('PageHistory')
-                    ->addExtraClass('history-viewer--standalone')
                     ->setForm($form)
             );
             $form->setFields($fieldList);

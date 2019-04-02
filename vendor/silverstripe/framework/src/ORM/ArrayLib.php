@@ -75,14 +75,28 @@ class ArrayLib
     }
 
     /**
-     * Flattens a multi-dimensional array to a one level array without preserving the keys
+     * @todo Improve documentation
      *
-     * @param array $array
+     * @param array $arr
      * @return array
      */
-    public static function array_values_recursive($array)
+    public static function array_values_recursive($arr)
     {
-        return self::flatten($array, false);
+        $lst = array();
+
+        foreach (array_keys($arr) as $k) {
+            $v = $arr[$k];
+            if (is_scalar($v)) {
+                $lst[] = $v;
+            } elseif (is_array($v)) {
+                $lst = array_merge(
+                    $lst,
+                    self::array_values_recursive($v)
+                );
+            }
+        }
+
+        return $lst;
     }
 
     /**
@@ -109,19 +123,25 @@ class ArrayLib
      * Determines if an array is associative by checking for existing keys via
      * array_key_exists().
      *
-     * @see http://nz.php.net/manual/en/function.is-array.php#121692
+     * @see http://nz.php.net/manual/en/function.is-array.php#76188
      *
-     * @param array $array
+     * @param array $arr
      *
      * @return boolean
      */
-    public static function is_associative($array)
+    public static function is_associative($arr)
     {
-        $isAssociative = !empty($array)
-            && is_array($array)
-            && ($array !== array_values($array));
+        if (is_array($arr) && !empty($arr)) {
+            for ($iterator = count($arr) - 1; $iterator; $iterator--) {
+                if (!array_key_exists($iterator, $arr)) {
+                    return true;
+                }
+            }
 
-        return $isAssociative;
+            return !array_key_exists(0, $arr);
+        }
+
+        return false;
     }
 
     /**
@@ -232,18 +252,17 @@ class ArrayLib
      */
     public static function flatten($array, $preserveKeys = true, &$out = array())
     {
-        array_walk_recursive(
-            $array,
-            function ($value, $key) use (&$out, $preserveKeys) {
-                if (!is_scalar($value)) {
-                    // Do nothing
-                } elseif ($preserveKeys) {
-                    $out[$key] = $value;
+        foreach ($array as $key => $child) {
+            if (is_array($child)) {
+                $out = self::flatten($child, $preserveKeys, $out);
+            } else {
+                if ($preserveKeys) {
+                    $out[$key] = $child;
                 } else {
-                    $out[] = $value;
+                    $out[] = $child;
                 }
             }
-        );
+        }
 
         return $out;
     }

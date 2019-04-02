@@ -152,10 +152,7 @@ class SiteConfigLeftAndMain extends LeftAndMain
         if ($siteConfig->hasExtension(RecursivePublishable::class)) {
             $siteConfig->publishRecursive();
         }
-        $this->response->addHeader(
-            'X-Status',
-            rawurlencode(_t('SilverStripe\\Admin\\LeftAndMain.SAVEDUP', 'Saved.'))
-        );
+        $this->response->addHeader('X-Status', rawurlencode(_t(LeftAndMain::class . '.SAVEDUP', 'Saved.')));
         return $form->forTemplate();
     }
 

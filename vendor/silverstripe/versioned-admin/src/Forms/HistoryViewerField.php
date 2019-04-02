@@ -2,7 +2,6 @@
 
 namespace SilverStripe\VersionedAdmin\Forms;
 
-use SilverStripe\Core\Convert;
 use SilverStripe\Forms\FormField;
 use SilverStripe\ORM\CMSPreviewable;
 use SilverStripe\ORM\DataObject;
@@ -11,12 +10,11 @@ use SilverStripe\View\Requirements;
 class HistoryViewerField extends FormField
 {
     /**
-     * The default pagination page size
+     * Default to using the SiteTree component
      *
-     * @config
-     * @var int
+     * @var string
      */
-    private static $default_page_size = 30;
+    protected $schemaComponent = 'PageHistoryViewer';
 
     /**
      * Unique context key used to differentiate the different use cases for HistoryViewer
@@ -25,23 +23,12 @@ class HistoryViewerField extends FormField
      */
     protected $contextKey;
 
-    protected $schemaComponent = 'HistoryViewer';
-
-    protected $inputType = '';
-
     public function __construct($name, $title = null, $value = null)
     {
         Requirements::javascript('silverstripe/versioned-admin:client/dist/js/bundle.js');
         Requirements::css('silverstripe/versioned-admin:client/dist/styles/bundle.css');
 
         parent::__construct($name, $title, $value);
-    }
-
-    protected function setupDefaultClasses()
-    {
-        parent::setupDefaultClasses();
-
-        $this->addExtraClass('fill-height');
     }
 
     /**
@@ -80,49 +67,5 @@ class HistoryViewerField extends FormField
     {
         $this->contextKey = (string) $contextKey;
         return $this;
-    }
-
-    /**
-     * Provide the necessary input data for React to power the history viewer
-     *
-     * {@inheritDoc}
-     */
-    public function getSchemaDataDefaults()
-    {
-        $data = parent::getSchemaDataDefaults();
-
-        $sourceRecord = $this->getSourceRecord();
-
-        $data['data'] = array_merge($data['data'], [
-            'recordId' => $sourceRecord ? $sourceRecord->ID : null,
-            'recordClass' => $sourceRecord ? $sourceRecord->ClassName : null,
-            'contextKey' => $this->getContextKey(),
-            'isPreviewable' => $this->getPreviewEnabled(),
-            'limit' => $this->config()->get('default_page_size'),
-            'offset' => 0,
-            'page' => 0,
-        ]);
-
-        return $data;
-    }
-
-    /**
-     * When not used in a React form factory context, this adds the schema data to SilverStripe template
-     * rendered attributes lists
-     *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        $attributes = parent::getAttributes();
-
-        $attributes['data-schema'] = Convert::raw2json($this->getSchemaData());
-
-        return $attributes;
-    }
-
-    public function Type()
-    {
-        return 'history-viewer__container';
     }
 }

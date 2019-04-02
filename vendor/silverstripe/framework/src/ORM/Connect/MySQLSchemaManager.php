@@ -4,7 +4,6 @@ namespace SilverStripe\ORM\Connect;
 
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Convert;
-use LogicException;
 
 /**
  * Represents schema management object for MySQL
@@ -140,21 +139,9 @@ class MySQLSchemaManager extends DBSchemaManager
         return $info && strtoupper($info['Table_type']) == 'VIEW';
     }
 
-    /**
-     * Renames a table
-     *
-     * @param string $oldTableName
-     * @param string $newTableName
-     * @throws LogicException
-     * @return Query
-     */
     public function renameTable($oldTableName, $newTableName)
     {
-        if (!$this->hasTable($oldTableName)) {
-            throw new LogicException('Table ' . $oldTableName . ' does not exist.');
-        }
-
-        return $this->query("ALTER TABLE \"$oldTableName\" RENAME \"$newTableName\"");
+        $this->query("ALTER TABLE \"$oldTableName\" RENAME \"$newTableName\"");
     }
 
     public function checkAndRepairTable($tableName)
@@ -180,7 +167,7 @@ class MySQLSchemaManager extends DBSchemaManager
             "Table $tableName: repaired",
             "repaired"
         );
-        return $this->runTableCheckCommand("REPAIR TABLE \"$tableName\"");
+        return $this->runTableCheckCommand("REPAIR TABLE \"$tableName\" USE_FRM");
     }
 
     /**

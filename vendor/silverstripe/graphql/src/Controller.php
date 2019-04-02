@@ -10,12 +10,10 @@ use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Flushable;
-use SilverStripe\Core\Injector\Injector;
 use SilverStripe\GraphQL\Auth\Handler;
 use SilverStripe\GraphQL\Scaffolding\StaticSchema;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
-use SilverStripe\Security\SecurityToken;
 use SilverStripe\Versioned\Versioned;
 
 /**
@@ -59,24 +57,7 @@ class Controller extends BaseController implements Flushable
     protected $assetHandler;
 
     /**
-     * @param Manager $manager
-     */
-    public function __construct(Manager $manager = null)
-    {
-        parent::__construct();
-        $this->manager = $manager;
-
-        if ($this->manager && $this->manager->getSchemaKey()) {
-            // Side effect. This isn't ideal, but having multiple instances of StaticSchema
-            // is a massive architectural change.
-            StaticSchema::reset();
-
-            $this->manager->configure();
-        }
-    }
-
-    /**
-     * Handles requests to the index action (e.g. /graphql)
+     * Handles requests to /graphql (index action)
      *
      * @param HTTPRequest $request
      * @return HTTPResponse
@@ -87,6 +68,7 @@ class Controller extends BaseController implements Flushable
         if ($stage && in_array($stage, [Versioned::DRAFT, Versioned::LIVE])) {
             Versioned::set_stage($stage);
         }
+
         // Check for a possible CORS preflight request and handle if necessary
         // Refer issue 66:  https://github.com/silverstripe/silverstripe-graphql/issues/66
         if ($request->httpMethod() === 'OPTIONS') {
@@ -95,7 +77,14 @@ class Controller extends BaseController implements Flushable
 
         // Main query handling
         try {
-            $manager = $this->getManager($request);
+            $manager = $this->getManager();
+
+            // Check and validate user for this request
+            $member = $this->getRequestUser($request);
+            if ($member) {
+                $manager->setMember($member);
+            }
+
             // Parse input
             list($query, $variables) = $this->getRequestQueryVariables($request);
 
@@ -121,23 +110,17 @@ class Controller extends BaseController implements Flushable
     }
 
     /**
-     * @param HTTPRequest $request
      * @return Manager
      */
-    public function getManager($request = null)
+    public function getManager()
     {
-        $manager = null;
-        if (!$request) {
-            $request = $this->getRequest();
-        }
         if ($this->manager) {
-            $manager = $this->manager;
-        } else {
-            // Get a service rather than an instance (to allow procedural configuration)
-            $config = Config::inst()->get(static::class, 'schema');
-            $manager = Manager::createFromConfig($config);
+            return $this->manager;
         }
-        $this->applyManagerContext($manager, $request);
+
+        // Get a service rather than an instance (to allow procedural configuration)
+        $config = Config::inst()->get(static::class, 'schema');
+        $manager = Manager::createFromConfig($config);
         $this->setManager($manager);
 
         return $manager;
@@ -150,7 +133,6 @@ class Controller extends BaseController implements Flushable
     public function setManager($manager)
     {
         $this->manager = $manager;
-
         return $this;
     }
 
@@ -181,14 +163,6 @@ class Controller extends BaseController implements Flushable
     public function getAuthHandler()
     {
         return new Handler;
-    }
-
-    /**
-     * @return string
-     */
-    public function getToken()
-    {
-        return $this->getRequest()->getHeader('X-CSRF-TOKEN');
     }
 
     /**
@@ -246,30 +220,6 @@ class Controller extends BaseController implements Flushable
             }
         }
         return false;
-    }
-
-    /**
-     * @param Manager $manager
-     * @param HTTPRequest $request
-     * @throws Exception
-     */
-    protected function applyManagerContext(Manager $manager, HTTPRequest $request)
-    {
-        // Add request context to Manager
-        $manager->addContext('token', $this->getToken());
-        $method = null;
-        if ($request->isGET()) {
-            $method = 'GET';
-        } elseif ($request->isPOST()) {
-            $method = 'POST';
-        }
-        $manager->addContext('httpMethod', $method);
-
-        // Check and validate user for this request
-        $member = $this->getRequestUser($request);
-        if ($member) {
-            $manager->setMember($member);
-        }
     }
 
     /**
@@ -404,7 +354,7 @@ class Controller extends BaseController implements Flushable
             return;
         }
 
-        $this->getAssetHandler()->removeContent($this->generateCacheFilename());
+        $this->getAssetHandler()->removeContent(self::CACHE_FILENAME);
     }
 
     /**
@@ -415,7 +365,8 @@ class Controller extends BaseController implements Flushable
         if (!$this->getAssetHandler()) {
             return;
         }
-        $this->getAssetHandler()->setContent($this->generateCacheFilename(), $content);
+
+        $this->getAssetHandler()->setContent(self::CACHE_FILENAME, $content);
     }
 
     /**
@@ -432,26 +383,6 @@ class Controller extends BaseController implements Flushable
 
     public static function flush()
     {
-        // This is a bit of a hack to find all registered GraphQL servers. Depends on them
-        // being routed through Director.
-        $routes = Director::config()->get('rules');
-        foreach ($routes as $pattern => $controllerInfo) {
-            $routeClass = (is_string($controllerInfo)) ? $controllerInfo : $controllerInfo['Controller'];
-            if (stristr($routeClass, Controller::class) !== false) {
-                $inst = Injector::inst()->convertServiceProperty($routeClass);
-                if ($inst instanceof Controller) {
-                    /* @var Controller $inst */
-                    $inst->processTypeCaching();
-                }
-            }
-        }
-    }
-
-    /**
-     * @return string
-     */
-    protected function generateCacheFilename()
-    {
-        return $this->getManager()->getSchemaKey() . '.' . self::CACHE_FILENAME;
+        static::singleton()->processTypeCaching();
     }
 }

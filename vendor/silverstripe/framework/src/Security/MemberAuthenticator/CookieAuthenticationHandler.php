@@ -28,11 +28,6 @@ class CookieAuthenticationHandler implements AuthenticationHandler
     private $tokenCookieName;
 
     /**
-     * @var boolean
-     */
-    private $tokenCookieSecure = false;
-
-    /**
      * @var IdentityStore
      */
     private $cascadeInTo;
@@ -78,28 +73,6 @@ class CookieAuthenticationHandler implements AuthenticationHandler
     public function setTokenCookieName($tokenCookieName)
     {
         $this->tokenCookieName = $tokenCookieName;
-        return $this;
-    }
-
-    /**
-     * Get the name of the cookie used to store an login token
-     *
-     * @return string
-     */
-    public function getTokenCookieSecure()
-    {
-        return $this->tokenCookieSecure;
-    }
-
-    /**
-     * Set cookie with HTTPS only flag
-     *
-     * @param string $tokenCookieSecure
-     * @return $this
-     */
-    public function setTokenCookieSecure($tokenCookieSecure)
-    {
-        $this->tokenCookieSecure = $tokenCookieSecure;
         return $this;
     }
 
@@ -155,11 +128,11 @@ class CookieAuthenticationHandler implements AuthenticationHandler
 
         /** @var RememberLoginHash $rememberLoginHash */
         $rememberLoginHash = RememberLoginHash::get()
-            ->filter([
+            ->filter(array(
                 'MemberID' => $member->ID,
                 'DeviceID' => $deviceID,
-                'Hash' => $hash,
-            ])->first();
+                'Hash'     => $hash
+            ))->first();
         if (!$rememberLoginHash) {
             return null;
         }
@@ -216,14 +189,13 @@ class CookieAuthenticationHandler implements AuthenticationHandler
             $rememberLoginHash = RememberLoginHash::generate($member);
             $tokenExpiryDays = RememberLoginHash::config()->uninherited('token_expiry_days');
             $deviceExpiryDays = RememberLoginHash::config()->uninherited('device_expiry_days');
-            $secure = $this->getTokenCookieSecure();
             Cookie::set(
                 $this->getTokenCookieName(),
                 $member->ID . ':' . $rememberLoginHash->getToken(),
                 $tokenExpiryDays,
                 null,
                 null,
-                $secure,
+                null,
                 true
             );
             Cookie::set(
@@ -232,7 +204,7 @@ class CookieAuthenticationHandler implements AuthenticationHandler
                 $deviceExpiryDays,
                 null,
                 null,
-                $secure,
+                null,
                 true
             );
         } else {
@@ -248,7 +220,7 @@ class CookieAuthenticationHandler implements AuthenticationHandler
     {
         $member = Security::getCurrentUser();
         if ($member) {
-            RememberLoginHash::clear($member, Cookie::get($this->getDeviceCookieName()));
+            RememberLoginHash::clear($member, Cookie::get('alc_device'));
         }
         $this->clearCookies();
 
@@ -264,10 +236,9 @@ class CookieAuthenticationHandler implements AuthenticationHandler
      */
     protected function clearCookies()
     {
-        $secure = $this->getTokenCookieSecure();
-        Cookie::set($this->getTokenCookieName(), null, null, null, null, $secure);
-        Cookie::set($this->getDeviceCookieName(), null, null, null, null, $secure);
-        Cookie::force_expiry($this->getTokenCookieName(), null, null, null, null, $secure);
-        Cookie::force_expiry($this->getDeviceCookieName(), null, null, null, null, $secure);
+        Cookie::set($this->getTokenCookieName(), null);
+        Cookie::set($this->getDeviceCookieName(), null);
+        Cookie::force_expiry($this->getTokenCookieName());
+        Cookie::force_expiry($this->getDeviceCookieName());
     }
 }

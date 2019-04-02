@@ -12,7 +12,6 @@
 namespace Symfony\Component\Filesystem;
 
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
-use Symfony\Component\Filesystem\Exception\InvalidArgumentException;
 use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
@@ -138,8 +137,8 @@ class Filesystem
      * Sets access and modification time of file.
      *
      * @param string|iterable $files A filename, an array of files, or a \Traversable instance to create
-     * @param int             $time  The touch time as a Unix timestamp
-     * @param int             $atime The access time as a Unix timestamp
+     * @param int|null        $time  The touch time as a Unix timestamp, if not supplied the current system time is used
+     * @param int|null        $atime The access time as a Unix timestamp, if not supplied the current system time is used
      *
      * @throws IOException When touch fails
      */
@@ -194,7 +193,7 @@ class Filesystem
      * @param int             $umask     The mode mask (octal)
      * @param bool            $recursive Whether change the mod recursively or not
      *
-     * @throws IOException When the change fail
+     * @throws IOException When the change fails
      */
     public function chmod($files, $mode, $umask = 0000, $recursive = false)
     {
@@ -215,7 +214,7 @@ class Filesystem
      * @param string          $user      The new owner user name
      * @param bool            $recursive Whether change the owner recursively or not
      *
-     * @throws IOException When the change fail
+     * @throws IOException When the change fails
      */
     public function chown($files, $user, $recursive = false)
     {
@@ -242,7 +241,7 @@ class Filesystem
      * @param string          $group     The group name
      * @param bool            $recursive Whether change the group recursively or not
      *
-     * @throws IOException When the change fail
+     * @throws IOException When the change fails
      */
     public function chgrp($files, $group, $recursive = false)
     {
@@ -251,7 +250,7 @@ class Filesystem
                 $this->chgrp(new \FilesystemIterator($file), $group, true);
             }
             if (is_link($file) && \function_exists('lchgrp')) {
-                if (true !== @lchgrp($file, $group)) {
+                if (true !== @lchgrp($file, $group) || (\defined('HHVM_VERSION') && !posix_getgrnam($group))) {
                     throw new IOException(sprintf('Failed to chgrp file "%s".', $file), 0, null, $file);
                 }
             } else {
@@ -446,12 +445,8 @@ class Filesystem
      */
     public function makePathRelative($endPath, $startPath)
     {
-        if (!$this->isAbsolutePath($startPath)) {
-            throw new InvalidArgumentException(sprintf('The start path "%s" is not absolute.', $startPath));
-        }
-
-        if (!$this->isAbsolutePath($endPath)) {
-            throw new InvalidArgumentException(sprintf('The end path "%s" is not absolute.', $endPath));
+        if (!$this->isAbsolutePath($endPath) || !$this->isAbsolutePath($startPath)) {
+            @trigger_error(sprintf('Support for passing relative paths to %s() is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
         }
 
         // Normalize separators on Windows
@@ -475,11 +470,11 @@ class Filesystem
         $startPathArr = explode('/', trim($startPath, '/'));
         $endPathArr = explode('/', trim($endPath, '/'));
 
-        $normalizePathArray = function ($pathSegments) {
+        $normalizePathArray = function ($pathSegments, $absolute) {
             $result = [];
 
             foreach ($pathSegments as $segment) {
-                if ('..' === $segment) {
+                if ('..' === $segment && ($absolute || \count($result))) {
                     array_pop($result);
                 } elseif ('.' !== $segment) {
                     $result[] = $segment;
@@ -489,8 +484,8 @@ class Filesystem
             return $result;
         };
 
-        $startPathArr = $normalizePathArray($startPathArr);
-        $endPathArr = $normalizePathArray($endPathArr);
+        $startPathArr = $normalizePathArray($startPathArr, static::isAbsolutePath($startPath));
+        $endPathArr = $normalizePathArray($endPathArr, static::isAbsolutePath($endPath));
 
         // Find for which directory the common path stops
         $index = 0;
@@ -524,14 +519,14 @@ class Filesystem
      *  - existing files in the target directory will be overwritten, except if they are newer (see the `override` option)
      *  - files in the target directory that do not exist in the source directory will not be deleted (see the `delete` option)
      *
-     * @param string       $originDir The origin directory
-     * @param string       $targetDir The target directory
-     * @param \Traversable $iterator  Iterator that filters which files and directories to copy
-     * @param array        $options   An array of boolean options
-     *                                Valid options are:
-     *                                - $options['override'] If true, target files newer than origin files are overwritten (see copy(), defaults to false)
-     *                                - $options['copy_on_windows'] Whether to copy files instead of links on Windows (see symlink(), defaults to false)
-     *                                - $options['delete'] Whether to delete files that are not in the source directory (defaults to false)
+     * @param string            $originDir The origin directory
+     * @param string            $targetDir The target directory
+     * @param \Traversable|null $iterator  Iterator that filters which files and directories to copy, if null a recursive iterator is created
+     * @param array             $options   An array of boolean options
+     *                                     Valid options are:
+     *                                     - $options['override'] If true, target files newer than origin files are overwritten (see copy(), defaults to false)
+     *                                     - $options['copy_on_windows'] Whether to copy files instead of links on Windows (see symlink(), defaults to false)
+     *                                     - $options['delete'] Whether to delete files that are not in the source directory (defaults to false)
      *
      * @throws IOException When file type is unknown
      */
@@ -557,7 +552,10 @@ class Filesystem
             }
         }
 
-        $copyOnWindows = $options['copy_on_windows'] ?? false;
+        $copyOnWindows = false;
+        if (isset($options['copy_on_windows'])) {
+            $copyOnWindows = $options['copy_on_windows'];
+        }
 
         if (null === $iterator) {
             $flags = $copyOnWindows ? \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS : \FilesystemIterator::SKIP_DOTS;
@@ -569,10 +567,6 @@ class Filesystem
         }
 
         foreach ($iterator as $file) {
-            if (false === strpos($file->getPath(), $originDir)) {
-                throw new IOException(sprintf('Unable to mirror "%s" directory. If the origin directory is relative, try using "realpath" before calling the mirror method.', $originDir), 0, null, $originDir);
-            }
-
             $target = $targetDir.substr($file->getPathname(), $originDirLen);
 
             if ($copyOnWindows) {
@@ -725,15 +719,24 @@ class Filesystem
         }
     }
 
-    private function toIterable($files): iterable
+    /**
+     * @param mixed $files
+     *
+     * @return array|\Traversable
+     */
+    private function toIterable($files)
     {
         return \is_array($files) || $files instanceof \Traversable ? $files : [$files];
     }
 
     /**
      * Gets a 2-tuple of scheme (may be null) and hierarchical part of a filename (e.g. file:///tmp -> [file, tmp]).
+     *
+     * @param string $filename The filename to be parsed
+     *
+     * @return array The filename scheme and hierarchical part
      */
-    private function getSchemeAndHierarchy(string $filename): array
+    private function getSchemeAndHierarchy($filename)
     {
         $components = explode('://', $filename, 2);
 
@@ -745,7 +748,7 @@ class Filesystem
         self::$lastError = null;
         \set_error_handler(__CLASS__.'::handleError');
         try {
-            $result = $func(...\array_slice(\func_get_args(), 1));
+            $result = \call_user_func_array($func, \array_slice(\func_get_args(), 1));
             \restore_error_handler();
 
             return $result;

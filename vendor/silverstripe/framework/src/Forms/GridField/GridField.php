@@ -106,27 +106,6 @@ class GridField extends FormField
     protected $name = '';
 
     /**
-     * A whitelist of readonly component classes allowed if performReadonlyTransform is called.
-     *
-     * @var array
-     */
-    protected $readonlyComponents = [
-        GridField_ActionMenu::class,
-        GridFieldConfig_RecordViewer::class,
-        GridFieldButtonRow::class,
-        GridFieldDataColumns::class,
-        GridFieldDetailForm::class,
-        GridFieldLazyLoader::class,
-        GridFieldPageCount::class,
-        GridFieldPaginator::class,
-        GridFieldFilterHeader::class,
-        GridFieldSortableHeader::class,
-        GridFieldToolbarHeader::class,
-        GridFieldViewButton::class,
-        GridState_Component::class,
-    ];
-
-    /**
      * Pattern used for looking up
      */
     const FRAGMENT_REGEX = '/\$DefineFragment\(([a-z0-9\-_]+)\)/i';
@@ -215,66 +194,6 @@ class GridField extends FormField
     }
 
     /**
-     * Overload the readonly components for this gridfield.
-     *
-     * @param array $components an array map of component class references to whitelist for a readonly version.
-     */
-    public function setReadonlyComponents(array $components)
-    {
-        $this->readonlyComponents = $components;
-    }
-
-    /**
-     * Return the readonly components
-     *
-     * @return array a map of component classes.
-     */
-    public function getReadonlyComponents()
-    {
-        return $this->readonlyComponents;
-    }
-
-    /**
-     * Custom Readonly transformation to remove actions which shouldn't be present for a readonly state.
-     *
-     * @return GridField
-     */
-    public function performReadonlyTransformation()
-    {
-        $copy = clone $this;
-        $copy->setReadonly(true);
-        $copyConfig = $copy->getConfig();
-
-        // get the whitelist for allowable readonly components
-        $allowedComponents = $this->getReadonlyComponents();
-        foreach ($this->getConfig()->getComponents() as $component) {
-            // if a component doesn't exist, remove it from the readonly version.
-            if (!in_array(get_class($component), $allowedComponents)) {
-                $copyConfig->removeComponent($component);
-            }
-        }
-
-        // As the edit button may have been removed, add a view button if it doesn't have one
-        if (!$copyConfig->getComponentByType(GridFieldViewButton::class)) {
-            $copyConfig->addComponent(new GridFieldViewButton);
-        }
-
-        return $copy;
-    }
-
-    /**
-     * Disabling the gridfield should have the same affect as making it readonly (removing all action items).
-     *
-     * @return GridField
-     */
-    public function performDisabledTransformation()
-    {
-        parent::performDisabledTransformation();
-
-        return $this->performReadonlyTransformation();
-    }
-
-    /**
      * @return GridFieldConfig
      */
     public function getConfig()
@@ -295,18 +214,6 @@ class GridField extends FormField
             $this->config->addComponent(new GridState_Component());
         }
 
-        return $this;
-    }
-
-    /**
-     * @param bool $readonly
-     *
-     * @return $this
-     */
-    public function setReadonly($readonly)
-    {
-        parent::setReadonly($readonly);
-        $this->getState()->Readonly = $readonly;
         return $this;
     }
 
@@ -1029,9 +936,6 @@ class GridField extends FormField
         }
 
         if ($request->getHeader('X-Pjax') === 'CurrentField') {
-            if ($this->getState()->Readonly === true) {
-                $this->performDisabledTransformation();
-            }
             return $this->FieldHolder();
         }
 

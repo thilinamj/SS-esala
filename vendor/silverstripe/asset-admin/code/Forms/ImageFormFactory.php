@@ -8,7 +8,6 @@ use SilverStripe\Forms\FieldGroup;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
 use SilverStripe\Forms\FormFactory;
-use SilverStripe\Forms\OptionsetField;
 use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\TextField;
 
@@ -36,33 +35,27 @@ class ImageFormFactory extends FileFormFactory
         /** @var Tab $tab */
         $tab = parent::getFormFieldAttributesTab($record, $context);
 
-        $alignments = [
-            'leftAlone' => _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.AlignmentLeftAlone', 'Left'),
-            'center' => _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.AlignmentCenter', 'Center'),
-            'rightAlone' => _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.AlignmentRightAlone', 'Right'),
-            'left' => _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.AlignmentLeft', 'Left wrap'),
-            'right' => _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.AlignmentRight', 'Right wrap'),
-        ];
+        $alignments = array(
+            'leftAlone' => _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.AlignmentLeftAlone', 'On the left, on its own.'),
+            'center' => _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.AlignmentCenter', 'Centered, on its own.'),
+            'left' => _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.AlignmentLeft', 'On the left, with text wrapping around.'),
+            'right' => _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.AlignmentRight', 'On the right, with text wrapping around.'),
+        );
 
         $tab->push(
-            OptionsetField::create(
-                'Alignment',
-                _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.Alignment', 'Alignment'),
-                $alignments
-            )
-                ->addExtraClass('insert-embed-modal__placement')
+            DropdownField::create('Alignment', _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.Alignment', 'Alignment'), $alignments)
         );
         $tab->push(
             FieldGroup::create(
                 _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.ImageSpecs', 'Dimensions'),
                 TextField::create(
-                    'Width',
+                    'InsertWidth',
                     _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.ImageWidth', 'Width')
                 )
                     ->setMaxLength(5)
                     ->addExtraClass('flexbox-area-grow'),
                 TextField::create(
-                    'Height',
+                    'InsertHeight',
                     _t('SilverStripe\\AssetAdmin\\Controller\\AssetAdmin.ImageHeight', 'Height')
                 )
                     ->setMaxLength(5)
@@ -103,25 +96,25 @@ class ImageFormFactory extends FileFormFactory
             if (isset($context['Record'])) {
                 $record = $context['Record'];
             }
-
+            
             if (!$record) {
                 return;
             }
             /** @var FieldList $fields */
             $fields = $form->Fields();
-
+            
             $dimensions = $fields->fieldByName('Editor.Placement.Dimensions');
             $width = null;
             $height = null;
-
+            
             if ($dimensions) {
                 $width = $record->getWidth();
                 $height = $record->getHeight();
             }
-
+    
             if ($width && $height) {
                 $ratio = $width / $height;
-
+        
                 $dimensions->setSchemaComponent('ProportionConstraintField');
                 $dimensions->setSchemaState([
                     'data' => [

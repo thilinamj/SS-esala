@@ -1,12 +1,12 @@
 <ul>
 	<% loop $Forms %>
 	<li>
-		<a href="#{$FormName}_Tab">$AuthenticatorName</a>
+		<a href="#{$FormName}">$AuthenticatorName</a>
 	</li>
 	<% end_loop %>
 </ul>
 <% loop $Forms %>
-<div class="form-tab" id="{$FormName}_Tab">
+<div class="form-tab" id="{$FormName}">
 	<h3>$AuthenticatorName</h3>
 	$forTemplate
 </div>

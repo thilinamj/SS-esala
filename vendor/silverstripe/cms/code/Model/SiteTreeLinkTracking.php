@@ -4,8 +4,6 @@ namespace SilverStripe\CMS\Model;
 
 use DOMElement;
 use SilverStripe\Assets\Shortcodes\FileLinkTracking;
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\FormScaffolder;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBHTMLText;
@@ -53,15 +51,6 @@ class SiteTreeLinkTracking extends DataExtension
             'to' => 'Linked',
         ],
     ];
-
-    /**
-     * Controls visibility of the Link Tracking tab
-     *
-     * @config
-     * @see linktracking.yml
-     * @var boolean
-     */
-    private static $show_sitetree_link_tracking = false;
 
     /**
      * Parser for link tracking
@@ -203,15 +192,6 @@ class SiteTreeLinkTracking extends DataExtension
             $domReference->setAttribute('class', implode(' ', $classes));
         } else {
             $domReference->removeAttribute('class');
-        }
-    }
-
-    public function updateCMSFields(FieldList $fields)
-    {
-        if (!$this->owner->config()->get('show_sitetree_link_tracking')) {
-            $fields->removeByName('LinkTracking');
-        } elseif ($this->owner->ID && !$this->owner->getField('LinkTracking')) {
-            FormScaffolder::addManyManyRelationshipFields($fields, 'LinkTracking', null, true, $this->owner);
         }
     }
 }
